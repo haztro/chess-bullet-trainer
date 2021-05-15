@@ -24,6 +24,10 @@ config/icon="res://icon.png"
 GameData="*res://GameData.gd"
 AudioManager="*res://utils/AudioManager.tscn"
 
+[display]
+
+window/stretch/aspect="keep"
+
 [physics]
 
 common/enable_pause_aware_picking=true

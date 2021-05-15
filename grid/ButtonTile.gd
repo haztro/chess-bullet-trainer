@@ -1,4 +1,4 @@
-extends Button
+extends TextureButton
 
 signal button_pressed(btn)
 
@@ -15,12 +15,8 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-func set_new_size(size):
-	rect_size = size
-	$ColorRect.rect_size = size - Vector2(1, 1)
+func _process(delta):
+	$ColorRect.rect_size = rect_size - Vector2(1, 1)
 
 func spawn():
 	safe = 1
