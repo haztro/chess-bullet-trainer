@@ -16,7 +16,13 @@ var size_menu_scene = preload("res://ui/SizeMenu.tscn")
 var difficulty_menu_scene = preload("res://ui/DifficultyMenu.tscn")
 var chess_menu_scene = preload("res://ui/ChessMenu.tscn")
 
-var grid_freeplay_scene = preload("res://grid/GridFreePlay.tscn")
+var grid_freeplay_scene = preload("res://grid/GridFreeplay.tscn")
+var grid_vision_freeplay_scene = preload("res://grid/vision/GridVision.tscn") 
+var grid_vision_time_scene = preload("res://grid/vision/GridVisionTime.tscn") 
+var grid_vision_countdown_scene = preload("res://grid/vision/GridVisionCountdown.tscn") 
+
+var record_clicks = 0
+var record_time = 9999999999999999
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,6 +36,15 @@ func _ready():
 func start_freeplay(difficulty_selection):
 	difficulty = difficulty_selection
 	get_tree().change_scene_to(grid_freeplay_scene)
+	
+func start_vision_freeplay():
+	get_tree().change_scene_to(grid_vision_freeplay_scene)
+	
+func start_vision_time():
+	get_tree().change_scene_to(grid_vision_time_scene)
+	
+func start_vision_countdown():
+	get_tree().change_scene_to(grid_vision_countdown_scene)
 
 func goto_chess_menu(mode_selection):
 	mode = mode_selection

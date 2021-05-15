@@ -5,6 +5,12 @@ var possible_tiles = []
 var last_time = 0
 var total_time = 0
 var time_since_miss = 0
+var time_passed = 0
+
+
+var current_clicks = 0
+var session_clicks = 0
+var session_misses = 0
 
 var button_tile_scene = preload("res://grid/ButtonTile.tscn")
 
@@ -12,7 +18,7 @@ onready var top_margin = get_node("HBoxContainer/VBoxContainer/TopMargin")
 onready var bot_margin = get_node("HBoxContainer/VBoxContainer/BotMargin")
 
 onready var grid = get_node("HBoxContainer/VBoxContainer/HBoxContainer/Grid")
-onready var top_bar = get_node("HBoxContainer/VBoxContainer/TopMargin/HBoxContainer")
+onready var top_bar = get_node("TopBar")
 onready var toolbar = get_node("HBoxContainer/VBoxContainer/HBoxContainer/Toolbar")
 onready var center_overlay = get_node("CenterOverlay")
 
@@ -30,6 +36,8 @@ func _process(delta):
 	
 	$CenterOverlay.rect_position = grid.rect_global_position
 	$CenterOverlay.rect_size = grid.rect_size
+	$TopBar.rect_position = top_margin.rect_global_position + Vector2(0, 15)
+	$TopBar.rect_size = Vector2(grid.rect_size.x, top_margin.rect_size.y - 15)
 	
 func _on_viewport_size_changed():
 	$HBoxContainer.rect_size = OS.get_window_size()
@@ -39,22 +47,34 @@ func choose_rand_tile():
 	var rand_tile = possible_tiles[rand_tile_index]
 	rand_tile.spawn()
 	possible_tiles.erase(rand_tile)
+	
+	custom_rand_tile(rand_tile)
 
 func click_registered(btn):
 	if btn.safe:
 		AudioManager.play("click", 0, rand_range(0.3, 1.5))
 		btn.safe = 0
 		possible_tiles.append(btn)
+		current_clicks += 1
+		session_clicks += 1
 		successful_click()
 	else:
+		missed_click()
 		AudioManager.play("misclick", -5)
 		time_since_miss = 0
-		missed_click()
+		current_clicks = 0
+		session_misses += 1
+		
+func custom_rand_tile(rand_tile):
+	pass
 
 func successful_click():
 	pass
 	
 func missed_click():
+	pass
+	
+func timer_timeout():
 	pass
 		
 func make_grid(size, is_board):
@@ -79,7 +99,8 @@ func make_grid(size, is_board):
 			grid.add_child(bt)
 
 func _on_Timer_timeout():
-	var time_passed = OS.get_ticks_msec() - last_time
+	time_passed = OS.get_ticks_msec() - last_time
 	last_time = OS.get_ticks_msec()
-	total_time += last_time
-	time_since_miss += last_time
+	total_time += time_passed
+	time_since_miss += time_passed
+	timer_timeout()

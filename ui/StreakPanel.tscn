@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/fonts/font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/fonts/font_small.tres" type="DynamicFont" id=3]
+[ext_resource path="res://ui/TimeLabel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/StreakPanel.gd" type="Script" id=5]
+
+[node name="StreakPanel" type="VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+theme = ExtResource( 1 )
+custom_constants/separation = 20
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="."]
+margin_right = 390.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+text = "Streak"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_top = 52.0
+margin_right = 390.0
+margin_bottom = 120.0
+custom_constants/separation = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 168.0
+margin_bottom = 68.0
+custom_constants/separation = 20
+
+[node name="Label1" type="Label" parent="HBoxContainer/VBoxContainer"]
+margin_right = 168.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 3 )
+text = "Time:"
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer"]
+margin_top = 44.0
+margin_right = 168.0
+margin_bottom = 68.0
+custom_fonts/font = ExtResource( 3 )
+text = "Clicks:"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 198.0
+margin_right = 390.0
+margin_bottom = 68.0
+custom_constants/separation = 20
+
+[node name="TimeLabel" parent="HBoxContainer/VBoxContainer2" instance=ExtResource( 4 )]
+margin_right = 192.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 3 )
+text = "00:00:00"
+
+[node name="ClicksLabel" type="Label" parent="HBoxContainer/VBoxContainer2"]
+margin_top = 44.0
+margin_right = 192.0
+margin_bottom = 68.0
+custom_fonts/font = ExtResource( 3 )
+text = "123"

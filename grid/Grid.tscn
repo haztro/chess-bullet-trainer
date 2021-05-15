@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/fonts/font_small.tres" type="DynamicFont" id=1]
 [ext_resource path="res://grid/Grid.gd" type="Script" id=2]
+[ext_resource path="res://assets/theme.tres" type="Theme" id=3]
 
 [sub_resource type="Theme" id=2]
 default_font = ExtResource( 1 )
@@ -12,6 +13,7 @@ script = ExtResource( 2 )
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 1019.0
 margin_bottom = 594.0
+theme = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -23,33 +25,26 @@ custom_constants/margin_left = 32
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 margin_left = 88.0
-margin_top = 40.0
+margin_top = 20.0
 margin_right = 966.0
-margin_bottom = 554.0
+margin_bottom = 574.0
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
 [node name="TopMargin" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
 margin_right = 878.0
-margin_bottom = 40.0
+margin_bottom = 80.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
-custom_constants/margin_top = 20
-custom_constants/margin_bottom = 20
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/TopMargin"]
-margin_top = 20.0
-margin_right = 878.0
-margin_bottom = 20.0
+custom_constants/margin_top = 80
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
-margin_top = 44.0
+margin_top = 84.0
 margin_right = 878.0
-margin_bottom = 478.0
+margin_bottom = 518.0
 
 [node name="Grid" type="GridContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
-margin_left = -1.0
-margin_right = 399.0
+margin_right = 400.0
 margin_bottom = 400.0
 rect_min_size = Vector2( 400, 400 )
 size_flags_horizontal = 6
@@ -71,23 +66,34 @@ __meta__ = {
 }
 
 [node name="BotMargin" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
-margin_top = 482.0
+margin_top = 522.0
 margin_right = 878.0
-margin_bottom = 514.0
+margin_bottom = 554.0
 custom_constants/margin_top = 32
+
+[node name="TopBar" type="HBoxContainer" parent="."]
+margin_left = 509.0
+margin_top = 297.0
+margin_right = 509.0
+margin_bottom = 297.0
+theme = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CenterOverlay" type="MarginContainer" parent="."]
 margin_left = 509.0
 margin_top = 297.0
 margin_right = 509.0
 margin_bottom = 297.0
+mouse_filter = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.01
-autostart = true
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
