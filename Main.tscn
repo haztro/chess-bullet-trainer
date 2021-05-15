@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/theme.tres" type="Theme" id=1]
+[ext_resource path="res://Main.gd" type="Script" id=2]
+
+[node name="Main" type="MarginContainer"]
+margin_right = 1021.0
+margin_bottom = 598.0
+theme = ExtResource( 1 )
+custom_constants/margin_top = 20
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_top = 20.0
+margin_right = 1021.0
+margin_bottom = 598.0
+custom_constants/separation = 70
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_left = 286.0
+margin_right = 734.0
+margin_bottom = 32.0
+size_flags_horizontal = 4
+text = "Bullet Trainer"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 102.0
+margin_right = 1021.0
+margin_bottom = 266.0
+custom_constants/separation = 25
+
+[node name="FreeplayBtn" type="Button" parent="VBoxContainer/VBoxContainer"]
+margin_left = 335.0
+margin_right = 685.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 350, 0 )
+size_flags_horizontal = 4
+text = "Freeplay"
+
+[node name="VisionBtn" type="Button" parent="VBoxContainer/VBoxContainer"]
+margin_left = 335.0
+margin_top = 63.0
+margin_right = 685.0
+margin_bottom = 101.0
+rect_min_size = Vector2( 350, 0 )
+size_flags_horizontal = 4
+text = "Vision"
+
+[node name="PrecisionBtn" type="Button" parent="VBoxContainer/VBoxContainer"]
+margin_left = 335.0
+margin_top = 126.0
+margin_right = 685.0
+margin_bottom = 164.0
+rect_min_size = Vector2( 350, 0 )
+size_flags_horizontal = 4
+text = "Precision"
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/FreeplayBtn" to="." method="_on_FreeplayBtn_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/VisionBtn" to="." method="_on_VisionBtn_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/PrecisionBtn" to="." method="_on_PrecisionBtn_pressed"]

@@ -1,0 +1,69 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/theme.tres" type="Theme" id=1]
+[ext_resource path="res://ui/ChessMenu.gd" type="Script" id=2]
+
+[node name="SizeMenu" type="MarginContainer"]
+margin_right = 1025.0
+margin_bottom = 612.0
+theme = ExtResource( 1 )
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1005.0
+margin_bottom = 592.0
+custom_constants/separation = 80
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_left = 316.0
+margin_right = 668.0
+margin_bottom = 32.0
+size_flags_horizontal = 4
+text = "Select Mode"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+margin_left = 326.0
+margin_top = 112.0
+margin_right = 658.0
+margin_bottom = 326.0
+size_flags_horizontal = 4
+custom_constants/separation = 50
+
+[node name="EasyBtn" type="Button" parent="VBoxContainer/VBoxContainer"]
+margin_right = 332.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 150, 0 )
+text = "Freeplay"
+
+[node name="NormalBtn" type="Button" parent="VBoxContainer/VBoxContainer"]
+margin_top = 88.0
+margin_right = 332.0
+margin_bottom = 126.0
+rect_min_size = Vector2( 150, 0 )
+text = "Time Trial"
+
+[node name="HardBtn" type="Button" parent="VBoxContainer/VBoxContainer"]
+margin_top = 176.0
+margin_right = 332.0
+margin_bottom = 214.0
+rect_min_size = Vector2( 320, 0 )
+text = "Countdown"
+
+[node name="BackBtn" type="Button" parent="VBoxContainer"]
+margin_top = 534.0
+margin_right = 140.0
+margin_bottom = 572.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+text = "Back"
+
+[connection signal="pressed" from="VBoxContainer/BackBtn" to="." method="_on_BackBtn_pressed"]
