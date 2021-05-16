@@ -19,8 +19,10 @@ func _ready():
 func show_and_hold(value, win):
 	visible = 1
 	disabled = 0
-	$Label.text = value
-	$Label.rect_position.x = -$Label.rect_size.x / 2 + rect_size.x / 2
+	$Node2D/Label.text = value
+	var font = $Node2D/Label.get_font("font")
+	
+	$Node2D.position.x = -font.get_string_size(value).x / 2 + rect_size.x / 2
 	$Tween.interpolate_property(self, "modulate:a", modulate.a, 1, 0.2, 0, 1)
 	$Tween.start()
 

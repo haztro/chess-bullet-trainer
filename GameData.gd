@@ -6,6 +6,9 @@ enum ChessMode {FREEPLAY, TIME, COUNTDOWN}
 enum BoardSize {SIZE_4x4, SIZE_6x6, SIZE_8x8}
 enum Difficulty {EASY, NORMAL, HARD, EXTREME}
 
+const CLICK_TARGET = 5
+const COUNTDOWN_TIME = 5
+
 var mode = 0
 var chess_mode = 0
 var board_size = 0
@@ -16,10 +19,14 @@ var size_menu_scene = preload("res://ui/SizeMenu.tscn")
 var difficulty_menu_scene = preload("res://ui/DifficultyMenu.tscn")
 var chess_menu_scene = preload("res://ui/ChessMenu.tscn")
 
-var grid_freeplay_scene = preload("res://grid/GridFreeplay.tscn")
+var grid_freeplay_scene = preload("res://grid/freeplay/GridFreeplay.tscn")
 var grid_vision_freeplay_scene = preload("res://grid/vision/GridVision.tscn") 
 var grid_vision_time_scene = preload("res://grid/vision/GridVisionTime.tscn") 
 var grid_vision_countdown_scene = preload("res://grid/vision/GridVisionCountdown.tscn") 
+
+var grid_precision_freeplay_scene = preload("res://grid/precision/GridPrecision.tscn") 
+var grid_precision_time_scene = preload("res://grid/precision/GridPrecisionTime.tscn") 
+var grid_precision_countdown_scene = preload("res://grid/precision/GridPrecisionCountdown.tscn") 
 
 var record_clicks = 0
 var record_time = 9999999999999999
@@ -45,6 +52,15 @@ func start_vision_time():
 	
 func start_vision_countdown():
 	get_tree().change_scene_to(grid_vision_countdown_scene)
+	
+func start_precision_freeplay():
+	get_tree().change_scene_to(grid_precision_freeplay_scene)
+	
+func start_precision_time():
+	get_tree().change_scene_to(grid_precision_time_scene)
+	
+func start_precision_countdown():
+	get_tree().change_scene_to(grid_precision_countdown_scene)
 
 func goto_chess_menu(mode_selection):
 	mode = mode_selection

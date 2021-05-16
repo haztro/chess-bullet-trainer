@@ -18,9 +18,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$Sprite.scale = start_square.rect_size / 333
-	$Button.rect_size = start_square.rect_size
-	position = start_square.rect_global_position
+	if start_square != null:
+		$Sprite.scale = start_square.rect_size / 333
+		$Button.rect_size = start_square.rect_size
+		position = start_square.rect_global_position
 	
 	if is_grabbed:
 		position = get_global_mouse_position() - $Button.rect_size / 2

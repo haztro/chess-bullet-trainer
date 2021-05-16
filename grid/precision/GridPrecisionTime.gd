@@ -1,4 +1,4 @@
-extends "res://grid/vision/GridVision.gd"
+extends "res://grid/precision/GridPrecision.gd"
 
 
 # Declare member variables here. Examples:
@@ -15,14 +15,12 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func check_record():
-	pass
-		
-func check_record_time():
-	pass
-
-func successful_click():
+func custom_success():
+	current_clicks += 1
+	session_clicks += 1
+	
 	if current_clicks > GameData.CLICK_TARGET:
+		disable_pieces()
 		$TopBar/TargetLabel.visible = 0
 		$CenterOverlay/RetryButton.show_and_hold($TopBar/TimeLabel.text, 1)
 		$Timer.stop()
@@ -35,14 +33,18 @@ func successful_click():
 	else:
 		choose_rand_tile()
 	
-func missed_click():
+func custom_misclick():
+	disable_pieces()
 	$CenterOverlay/Countdown.mouse_filter = Control.MOUSE_FILTER_STOP
 	$CenterOverlay/RetryButton.show_and_hold("Miss", 0)
-	target = ""
 	$Timer.stop()
-
+	
+func custom_start():
+	enable_pieces()
+	show_pieces()
 
 func _on_RetryButton_pressed():
+	hide_pieces()
 	$CenterOverlay/RetryButton.hide_button()
 	$CenterOverlay/Countdown.start()
 	time_since_miss = 0

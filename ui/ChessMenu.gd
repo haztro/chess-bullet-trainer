@@ -20,12 +20,19 @@ func _on_BackBtn_pressed():
 
 
 func _on_FreeplayBtn_pressed():
-	GameData.start_vision_freeplay()
-
+	if GameData.mode == GameData.Mode.VISION:
+		GameData.start_vision_freeplay()
+	elif GameData.mode == GameData.Mode.PRECISION:
+		GameData.start_precision_freeplay()
 
 func _on_TimeTrialBtn_pressed():
-	GameData.start_vision_time()
-
+	if GameData.mode == GameData.Mode.VISION:
+		GameData.start_vision_time()
+	elif GameData.mode == GameData.Mode.PRECISION:
+		GameData.start_precision_time()
 
 func _on_CountdownBtn_pressed():
-	GameData.start_vision_countdown()
+	if GameData.mode == GameData.Mode.VISION:
+		GameData.start_vision_countdown()
+	elif GameData.mode == GameData.Mode.PRECISION:
+		GameData.start_precision_countdown()

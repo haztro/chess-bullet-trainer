@@ -20,11 +20,14 @@ func _process(delta):
 	session_panel.set_clicks(session_clicks)
 	session_panel.set_time(session_time)
 	session_panel.set_misses(session_misses)
+	update_top_bar_labels()
+	
+	check_record()
+	
+func update_top_bar_labels():
 	$TopBar/TargetLabel.text = target
 	$TopBar/ClickCountLabel.text = str(current_clicks)
 	$TopBar/TimeLabel.set_time(time_since_miss)
-	
-	check_record()
 
 func check_record():
 	if current_clicks >= GameData.record_clicks:
