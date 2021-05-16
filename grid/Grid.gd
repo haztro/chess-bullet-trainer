@@ -43,6 +43,7 @@ func _on_viewport_size_changed():
 	$HBoxContainer.rect_size = OS.get_window_size()
 	
 func choose_rand_tile():
+	randomize()
 	var rand_tile_index = int(rand_range(0, len(possible_tiles)))
 	var rand_tile = possible_tiles[rand_tile_index]
 	rand_tile.spawn()

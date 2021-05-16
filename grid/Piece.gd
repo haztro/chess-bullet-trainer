@@ -1,15 +1,48 @@
 extends Node2D
 
+signal released(piece)
+
+
+export(int) var active = 1
+
 var piece_id = 0
 var white = 0
+var start_square = null
+var target_square = null
 
-var chess = preload("res://grid/Chess.gd")
+var is_grabbed = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Sprite.region_rect = Rect2(piece_id * 333, white * 333, 333, 333)
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	$Sprite.scale = start_square.rect_size / 333
+	$Button.rect_size = start_square.rect_size
+	position = start_square.rect_global_position
+	
+	if is_grabbed:
+		position = get_global_mouse_position() - $Button.rect_size / 2
+	
+func set_piece_type(pos, is_target):
+	var min_bound = 0
+	if is_target:
+		min_bound = 1
+	if pos.y == 0 or pos.y == 7:
+		piece_id = int(rand_range(min_bound, 5))
+	else:
+		piece_id = int(rand_range(min_bound, 6))
+	if active == 0:
+		white = 1
+	$Sprite.region_rect = Rect2(piece_id * 333, white * 333, 333, 333)
+
+func _on_Button_button_down():
+	if active:
+		is_grabbed = 1
+
+
+func _on_Button_button_up():
+	if active:
+		is_grabbed = 0
+		emit_signal("released", self)
