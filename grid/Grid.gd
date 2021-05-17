@@ -105,3 +105,7 @@ func _on_Timer_timeout():
 	total_time += time_passed
 	time_since_miss += time_passed
 	timer_timeout()
+
+
+func _on_Button_pressed():
+	GameData.goto_main_menu()

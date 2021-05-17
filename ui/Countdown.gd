@@ -11,6 +11,11 @@ func _ready():
 func _process(delta):
 	rect_size = get_parent().rect_size
 	rect_position = Vector2.ZERO
+	
+	if Input.is_action_just_pressed("skip") and !$Timer.is_stopped():
+		finish_countdown()
+		$Tween.interpolate_property(self, "modulate:a", modulate.a, 0, 0.3, 0, 1)
+		$Tween.start()
 
 func start():
 	time = 3
@@ -31,11 +36,13 @@ func show_label():
 	yield($Tween, "tween_all_completed")
 	
 	if time <= 1:
-		emit_signal("countdown_finished")
-		time = 3
-		mouse_filter = Control.MOUSE_FILTER_IGNORE
-		$Timer.stop()
+		finish_countdown()
 		
+func finish_countdown():
+	emit_signal("countdown_finished")
+	time = 3
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$Timer.stop()
 
 func _on_Timer_timeout():
 	time -= 1
