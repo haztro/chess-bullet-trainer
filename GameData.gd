@@ -1,6 +1,5 @@
 extends Node
 
-
 enum Mode {FREEPLAY, VISION, PRECISION}
 enum ChessMode {FREEPLAY, TIME, COUNTDOWN}
 enum BoardSize {SIZE_4x4, SIZE_6x6, SIZE_8x8}
@@ -9,6 +8,8 @@ enum Difficulty {EASY, NORMAL, HARD, EXTREME}
 const CLICK_TARGET = 5
 const COUNTDOWN_TIME = 5
 
+var white = 1
+var coords = 1
 var mode = 0
 var chess_mode = 0
 var board_size = 0

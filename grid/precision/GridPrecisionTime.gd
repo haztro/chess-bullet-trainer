@@ -29,7 +29,7 @@ func custom_success():
 			GameData.record_time = time_since_miss
 			GameData.record_clicks = current_clicks
 			record_panel.set_clicks(GameData.record_clicks)
-			record_panel.set_time(GameData.record_time)
+			record_panel.set_time(get_time_string(GameData.record_time))
 	else:
 		choose_rand_tile()
 	

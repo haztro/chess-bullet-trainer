@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://grid/Grid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://grid/precision/GridPrecision.gd" type="Script" id=2]
 [ext_resource path="res://grid/Piece.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/fonts/font_small.tres" type="DynamicFont" id=4]
-[ext_resource path="res://ui/TimeLabel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ui/ChessSettings.tscn" type="PackedScene" id=4]
 [ext_resource path="res://ui/StreakPanel.tscn" type="PackedScene" id=7]
 [ext_resource path="res://ui/SessionPanelFreeplay.tscn" type="PackedScene" id=8]
 [ext_resource path="res://ui/Countdown.tscn" type="PackedScene" id=9]
@@ -12,24 +11,45 @@
 [node name="GridPrecision" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
+[node name="MarginContainer" parent="HBoxContainer" index="0"]
+margin_bottom = 873.0
+
+[node name="VBoxContainer" parent="HBoxContainer" index="1"]
+margin_top = 0.0
+margin_bottom = 873.0
+
+[node name="HBoxContainer" parent="HBoxContainer/VBoxContainer" index="1"]
+margin_bottom = 821.0
+
+[node name="Toolbar" parent="HBoxContainer/VBoxContainer/HBoxContainer" index="1"]
+margin_bottom = 737.0
+
+[node name="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar" index="0"]
+margin_bottom = 722.0
+
 [node name="SessionPanelFreeplay" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="0" instance=ExtResource( 8 )]
 margin_right = 444.0
-margin_bottom = 164.0
+margin_bottom = 266.0
 
 [node name="RecordPanel" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="1" instance=ExtResource( 7 )]
-margin_top = 194.0
+margin_top = 291.0
 margin_right = 444.0
-margin_bottom = 314.0
-size_flags_vertical = 10
-title = "Record"
+margin_bottom = 489.0
+title = "Best"
 
-[node name="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="2"]
-margin_top = 334.0
-margin_bottom = 384.0
+[node name="ChessSettings" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="2" instance=ExtResource( 4 )]
+margin_top = 514.0
+margin_right = 444.0
+margin_bottom = 652.0
+size_flags_vertical = 10
 
 [node name="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="3"]
-margin_top = 404.0
-margin_bottom = 434.0
+margin_top = 677.0
+margin_bottom = 707.0
+
+[node name="BotMargin" parent="HBoxContainer/VBoxContainer" index="2"]
+margin_top = 825.0
+margin_bottom = 873.0
 
 [node name="TargetLabel" type="Label" parent="TopBar" index="0"]
 margin_bottom = 32.0
@@ -40,14 +60,12 @@ margin_right = 4.0
 margin_bottom = 32.0
 size_flags_horizontal = 6
 
-[node name="TimeLabel" parent="TopBar" index="2" instance=ExtResource( 6 )]
+[node name="TimeLabel" type="Label" parent="TopBar" index="2"]
 visible = false
 margin_left = 8.0
-margin_top = 4.0
 margin_right = 8.0
-margin_bottom = 28.0
+margin_bottom = 32.0
 size_flags_horizontal = 10
-custom_fonts/font = ExtResource( 4 )
 
 [node name="Countdown" parent="CenterOverlay" index="0" instance=ExtResource( 9 )]
 margin_right = 72.0

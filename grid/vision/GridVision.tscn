@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/fonts/font_small.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/PromptLabel.tscn" type="PackedScene" id=2]
-[ext_resource path="res://ui/TimeLabel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui/ChessSettings.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/StreakPanel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://grid/Grid.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/SessionPanelFreeplay.tscn" type="PackedScene" id=6]
@@ -12,24 +12,45 @@
 [node name="GridVision" instance=ExtResource( 5 )]
 script = ExtResource( 8 )
 
-[node name="SessionPanelFreeplay" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="0" instance=ExtResource( 6 )]
-margin_right = 444.0
-margin_bottom = 164.0
+[node name="MarginContainer" parent="HBoxContainer" index="0"]
+margin_bottom = 873.0
 
-[node name="RecordPanel" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="1" instance=ExtResource( 4 )]
-margin_top = 194.0
-margin_right = 444.0
-margin_bottom = 314.0
-size_flags_vertical = 10
-title = "Record"
+[node name="VBoxContainer" parent="HBoxContainer" index="1"]
+margin_top = 0.0
+margin_bottom = 873.0
 
-[node name="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="2"]
-margin_top = 334.0
-margin_bottom = 384.0
+[node name="HBoxContainer" parent="HBoxContainer/VBoxContainer" index="1"]
+margin_bottom = 821.0
+
+[node name="Toolbar" parent="HBoxContainer/VBoxContainer/HBoxContainer" index="1"]
+margin_bottom = 737.0
+
+[node name="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar" index="0"]
+margin_bottom = 722.0
+
+[node name="ChessSettings" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="0" instance=ExtResource( 3 )]
+margin_right = 444.0
+margin_bottom = 138.0
+
+[node name="SessionPanelFreeplay" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="1" instance=ExtResource( 6 )]
+margin_top = 163.0
+margin_right = 444.0
+margin_bottom = 429.0
+
+[node name="RecordPanel" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="2" instance=ExtResource( 4 )]
+margin_top = 454.0
+margin_right = 444.0
+margin_bottom = 652.0
+title = "Best"
 
 [node name="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="3"]
-margin_top = 404.0
-margin_bottom = 434.0
+margin_top = 677.0
+margin_bottom = 707.0
+size_flags_vertical = 10
+
+[node name="BotMargin" parent="HBoxContainer/VBoxContainer" index="2"]
+margin_top = 825.0
+margin_bottom = 873.0
 
 [node name="TargetLabel" type="Label" parent="TopBar" index="0"]
 margin_bottom = 32.0
@@ -40,7 +61,7 @@ margin_right = 4.0
 margin_bottom = 32.0
 size_flags_horizontal = 10
 
-[node name="TimeLabel" parent="TopBar" index="2" instance=ExtResource( 3 )]
+[node name="TimeLabel" type="Label" parent="TopBar" index="2"]
 margin_left = 8.0
 margin_top = 4.0
 margin_right = 8.0

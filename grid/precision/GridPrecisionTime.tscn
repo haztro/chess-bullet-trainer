@@ -7,8 +7,46 @@
 [node name="GridPrecisionTime" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
+[node name="MarginContainer" parent="HBoxContainer" index="0"]
+margin_bottom = 594.0
+
+[node name="VBoxContainer" parent="HBoxContainer" index="1"]
+margin_top = 11.0
+margin_bottom = 583.0
+
+[node name="HBoxContainer" parent="HBoxContainer/VBoxContainer" index="1"]
+margin_bottom = 520.0
+
+[node name="PanelContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer" index="0"]
+margin_bottom = 436.0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Toolbar" parent="HBoxContainer/VBoxContainer/HBoxContainer" index="1"]
+margin_bottom = 436.0
+
+[node name="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar" index="0"]
+margin_bottom = 421.0
+custom_constants/separation = 20
+
 [node name="SessionPanelFreeplay" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="0"]
 visible = false
+
+[node name="RecordPanel" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="1"]
+margin_top = 0.0
+margin_bottom = 198.0
+
+[node name="ChessSettings" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="2"]
+margin_top = 218.0
+margin_bottom = 356.0
+
+[node name="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="3"]
+margin_top = 376.0
+margin_bottom = 406.0
+
+[node name="BotMargin" parent="HBoxContainer/VBoxContainer" index="2"]
+margin_top = 524.0
+margin_bottom = 572.0
 
 [node name="TargetLabel" parent="TopBar" index="0"]
 visible = false

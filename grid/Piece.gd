@@ -19,6 +19,11 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if start_square != null:
+		if active:
+			$Sprite.region_rect = Rect2(piece_id * 333, (GameData.white ^ 1) * 333, 333, 333)
+		else:
+			$Sprite.region_rect = Rect2(piece_id * 333, GameData.white * 333, 333, 333)
+
 		$Sprite.scale = start_square.rect_size / 333
 		$Button.rect_size = start_square.rect_size
 		position = start_square.rect_global_position

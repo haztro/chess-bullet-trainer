@@ -13,11 +13,11 @@ func _process(delta):
 func update_top_bar_labels():
 	$TopBar/TargetLabel.text = target
 	$TopBar/ClickCountLabel.text = str(current_clicks)
-	$TopBar/TimeLabel.set_time(GameData.COUNTDOWN_TIME * 1000 - time_since_miss, 0)
+	$TopBar/TimeLabel.text = get_time_string(GameData.COUNTDOWN_TIME * 1000 - time_since_miss, 0)
 
 func check_record():
 	GameData.record_time = GameData.COUNTDOWN_TIME * 1000
-	record_panel.set_time(GameData.record_time, 0)
+	record_panel.set_time(get_time_string(GameData.record_time, 0))
 		
 func check_record_time():
 	pass

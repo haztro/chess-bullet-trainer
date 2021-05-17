@@ -17,7 +17,7 @@ var button_tile_scene = preload("res://grid/ButtonTile.tscn")
 onready var top_margin = get_node("HBoxContainer/VBoxContainer/TopMargin")
 onready var bot_margin = get_node("HBoxContainer/VBoxContainer/BotMargin")
 
-onready var grid = get_node("HBoxContainer/VBoxContainer/HBoxContainer/Grid")
+onready var grid = get_node("HBoxContainer/VBoxContainer/HBoxContainer/PanelContainer/Grid")
 onready var top_bar = get_node("TopBar")
 onready var toolbar = get_node("HBoxContainer/VBoxContainer/HBoxContainer/Toolbar")
 onready var center_overlay = get_node("CenterOverlay")
@@ -98,6 +98,15 @@ func make_grid(size, is_board):
 					bt.colour2 = bt.colour1
 			
 			grid.add_child(bt)
+			
+func get_time_string(time, has_mins=1):
+	var mins = floor(time / 60000)
+	var seconds = floor((time - mins * 60000) / 1000)
+	var huns = time - mins * 60000 - seconds * 1000
+	if has_mins:
+		return "%02d:%02d:%02d" % [mins, seconds, huns / 10]
+	else:
+		return "%d:%02ds" % [seconds, huns / 10]
 
 func _on_Timer_timeout():
 	time_passed = OS.get_ticks_msec() - last_time

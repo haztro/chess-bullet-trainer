@@ -7,8 +7,58 @@
 [node name="GridVisionCountdown" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 
-[node name="SessionPanelFreeplay" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="0"]
+[node name="MarginContainer" parent="HBoxContainer" index="0"]
+margin_bottom = 594.0
+
+[node name="VBoxContainer" parent="HBoxContainer" index="1"]
+margin_left = 73.0
+margin_top = 12.0
+margin_right = 981.0
+margin_bottom = 582.0
+
+[node name="TopMargin" parent="HBoxContainer/VBoxContainer" index="0"]
+margin_right = 908.0
+
+[node name="HBoxContainer" parent="HBoxContainer/VBoxContainer" index="1"]
+margin_right = 908.0
+margin_bottom = 518.0
+
+[node name="PanelContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer" index="0"]
+margin_bottom = 434.0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Toolbar" parent="HBoxContainer/VBoxContainer/HBoxContainer" index="1"]
+margin_left = 434.0
+margin_right = 908.0
+margin_bottom = 434.0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 30
+
+[node name="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar" index="0"]
+margin_left = 30.0
+margin_top = 0.0
+margin_right = 474.0
+margin_bottom = 434.0
+custom_constants/separation = 20
+
+[node name="SessionPanelFreeplay" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="1"]
 visible = false
+custom_constants/separation = 20
+
+[node name="RecordPanel" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="2"]
+margin_top = 216.0
+margin_bottom = 384.0
+
+[node name="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="3"]
+margin_top = 404.0
+margin_bottom = 434.0
+
+[node name="BotMargin" parent="HBoxContainer/VBoxContainer" index="2"]
+margin_top = 522.0
+margin_right = 908.0
+margin_bottom = 570.0
 
 [node name="Countdown" parent="CenterOverlay" index="0"]
 margin_right = 160.0

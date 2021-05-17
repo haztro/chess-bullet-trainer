@@ -19,7 +19,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	session_panel.set_clicks(session_clicks)
-	session_panel.set_time(session_time)
+	session_panel.set_time(get_time_string(session_time))
 	session_panel.set_misses(session_misses)
 	update_top_bar_labels()
 	check_record()
@@ -27,7 +27,7 @@ func _process(delta):
 func update_top_bar_labels():
 #	$TopBar/TargetLabel.text = target
 	$TopBar/ClickCountLabel.text = str(current_clicks)
-	$TopBar/TimeLabel.set_time(time_since_miss)
+	$TopBar/TimeLabel.text = get_time_string(time_since_miss)
 	
 func check_record():
 	if current_clicks >= GameData.record_clicks:
@@ -35,7 +35,7 @@ func check_record():
 		GameData.record_time = time_since_miss
 		
 	record_panel.set_clicks(GameData.record_clicks)
-	record_panel.set_time(GameData.record_time)
+	record_panel.set_time(get_time_string(GameData.record_time))
 		
 func check_record_time():
 	if current_clicks == GameData.record_clicks:

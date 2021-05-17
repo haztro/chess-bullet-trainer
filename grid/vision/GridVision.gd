@@ -5,6 +5,8 @@ var session_time = 0
 var letters = "ABCDEFGH"
 var target = ""
 
+var chess_tile_scene = preload("res://grid/ChessTile.tscn")
+
 onready var session_panel = get_node("HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer/SessionPanelFreeplay")
 onready var record_panel = get_node("HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer/RecordPanel")
 
@@ -18,7 +20,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	session_panel.set_clicks(session_clicks)
-	session_panel.set_time(session_time)
+	session_panel.set_time(get_time_string(session_time))
 	session_panel.set_misses(session_misses)
 	update_top_bar_labels()
 	
@@ -27,7 +29,7 @@ func _process(delta):
 func update_top_bar_labels():
 	$TopBar/TargetLabel.text = target
 	$TopBar/ClickCountLabel.text = str(current_clicks)
-	$TopBar/TimeLabel.set_time(time_since_miss)
+	$TopBar/TimeLabel.text = get_time_string(time_since_miss)
 
 func check_record():
 	if current_clicks >= GameData.record_clicks:
@@ -35,7 +37,7 @@ func check_record():
 		GameData.record_time = time_since_miss
 		
 	record_panel.set_clicks(GameData.record_clicks)
-	record_panel.set_time(GameData.record_time)
+	record_panel.set_time(get_time_string(GameData.record_time))
 		
 func check_record_time():
 	if current_clicks == GameData.record_clicks:
@@ -53,6 +55,26 @@ func successful_click():
 	
 func missed_click():
 	check_record_time()
+	
+func make_grid(size, chess):
+	grid.columns = 8
+	
+	for y in range(8):
+		for x in range(8):
+			var bt = chess_tile_scene.instance()
+			tiles[Vector2(x, y)] = bt
+			possible_tiles.append(bt)
+			bt.pos = Vector2(x, y)
+			bt.connect("button_pressed", self, "click_registered")
+			
+			if (x + y) % 2 != 0:
+				bt.colour1 = Color(0.34375, 0.225586, 0.171875)
+				bt.colour2 = bt.colour1
+			else:
+				bt.colour1 = Color(0.953125, 0.876568, 0.778137)
+				bt.colour2 = bt.colour1
+			
+			grid.add_child(bt)
 	
 func custom_start():
 	pass

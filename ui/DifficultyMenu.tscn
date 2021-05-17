@@ -72,7 +72,6 @@ margin_bottom = 572.0
 size_flags_horizontal = 0
 size_flags_vertical = 10
 text = "Back"
-
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/EasyBtn" to="." method="_on_EasyBtn_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/NormalBtn" to="." method="_on_NormalBtn_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/HardBtn" to="." method="_on_HardBtn_pressed"]
