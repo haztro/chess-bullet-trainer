@@ -3,12 +3,13 @@ extends "res://grid/Grid.gd"
 var session_time = 0
 
 var letters = "ABCDEFGH"
-var target = ""
+var target = "  "
+var target_pos = Vector2.ZERO
 
 var chess_tile_scene = preload("res://grid/ChessTile.tscn")
 
-onready var session_panel = get_node("HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer/SessionPanelFreeplay")
-onready var record_panel = get_node("HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer/RecordPanel")
+onready var session_panel = get_node("Toolbar/VBoxContainer/SessionPanelFreeplay")
+onready var record_panel = get_node("Toolbar/VBoxContainer/RecordPanel")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,31 +23,38 @@ func _process(delta):
 	session_panel.set_clicks(session_clicks)
 	session_panel.set_time(get_time_string(session_time))
 	session_panel.set_misses(session_misses)
+	session_panel.set_accuracy(accuracy)
 	update_top_bar_labels()
 	
-	check_record()
+	record_panel.set_clicks(GameData.score["vision"]["freeplay"]["clicks"])
+	record_panel.set_time(get_time_string(GameData.score["vision"]["freeplay"]["time"]))
 	
 func update_top_bar_labels():
 	$TopBar/TargetLabel.text = target
 	$TopBar/ClickCountLabel.text = str(current_clicks)
-	$TopBar/TimeLabel.text = get_time_string(time_since_miss)
+	$TopBar/TimeLabel.text = get_time_string(time_since_miss, time_since_miss >= 60000)
 
 func check_record():
-	if current_clicks >= GameData.record_clicks:
-		GameData.record_clicks = current_clicks
-		GameData.record_time = time_since_miss
-		
-	record_panel.set_clicks(GameData.record_clicks)
-	record_panel.set_time(get_time_string(GameData.record_time))
+	if current_clicks >= GameData.score["vision"]["freeplay"]["clicks"]:
+		GameData.score["vision"]["freeplay"]["clicks"] = current_clicks
+		GameData.score["vision"]["freeplay"]["time"] = time_since_miss
 		
 func check_record_time():
-	if current_clicks == GameData.record_clicks:
-		if time_since_miss < GameData.record_time:
-			GameData.record_time = time_since_miss
+	if current_clicks == GameData.score["vision"]["freeplay"]["clicks"]:
+		if time_since_miss < GameData.score["vision"]["freeplay"]["time"]:
+			GameData.score["vision"]["freeplay"]["time"] = time_since_miss
 			
 func custom_rand_tile(rand_tile):
-	var y = letters[rand_tile.pos.x]
-	var x = 8 - rand_tile.pos.y
+	target_pos = rand_tile.pos
+	var x
+	var y
+	if GameData.white:
+		y = letters[rand_tile.pos.x]
+		x = 8 - rand_tile.pos.y
+	else:
+		y = letters[7 - rand_tile.pos.x]
+		x = rand_tile.pos.y + 1
+		
 	target = str(y) + str(x)
 	$CenterOverlay/PromptLabel.show_label(target)
 
@@ -54,6 +62,7 @@ func successful_click():
 	choose_rand_tile()
 	
 func missed_click():
+	check_record()
 	check_record_time()
 	
 func make_grid(size, chess):
@@ -88,3 +97,10 @@ func _on_Countdown_countdown_finished():
 	$Timer.start()
 	choose_rand_tile()
 	
+
+func _on_ChessSettings_colour_changed():
+	var new_pos = Vector2(7 - target_pos.x, 7 - target_pos.y)
+	tiles[target_pos].safe = 0
+	possible_tiles.append(tiles[target_pos])
+	tiles[new_pos].spawn()
+	possible_tiles.erase(tiles[new_pos])

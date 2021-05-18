@@ -8,11 +8,16 @@ var time_since_miss = 0
 var time_passed = 0
 
 
+var accuracy = 100
+var speed = 0
 var current_clicks = 0
 var session_clicks = 0
 var session_misses = 0
 
 var button_tile_scene = preload("res://grid/ButtonTile.tscn")
+
+var font_large = preload("res://assets/fonts/font.tres")
+var font_small = preload("res://assets/fonts/font_small.tres")
 
 onready var top_margin = get_node("HBoxContainer/VBoxContainer/TopMargin")
 onready var bot_margin = get_node("HBoxContainer/VBoxContainer/BotMargin")
@@ -20,6 +25,7 @@ onready var bot_margin = get_node("HBoxContainer/VBoxContainer/BotMargin")
 onready var grid = get_node("HBoxContainer/VBoxContainer/HBoxContainer/PanelContainer/Grid")
 onready var top_bar = get_node("TopBar")
 onready var toolbar = get_node("HBoxContainer/VBoxContainer/HBoxContainer/Toolbar")
+onready var toolbar_float = get_node("Toolbar")
 onready var center_overlay = get_node("CenterOverlay")
 
 # Called when the node enters the scene tree for the first time.
@@ -30,14 +36,34 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+
+	# Scale GUI
+	var panel = $HBoxContainer/VBoxContainer/HBoxContainer/PanelContainer
+	toolbar_float.rect_position = toolbar.rect_global_position
+	toolbar_float.rect_size.y = panel.rect_size.y
+	toolbar_float.rect_size.x = toolbar.rect_size.x
+	toolbar_float.rect_scale = Vector2.ONE
+	if toolbar_float.rect_size.y > panel.rect_size.y:
+		toolbar_float.rect_scale.y = panel.rect_size.y / toolbar_float.rect_size.y
+		toolbar_float.rect_scale.x = toolbar_float.rect_scale.y
+		
+#	$FontLarge.get("custom_fonts/font").set_size(panel.rect_size.y * 32 / 920)
+#	$FontSmall.get("custom_fonts/font").set_size(panel.rect_size.y * 24 / 920)
+	
 	grid.rect_min_size = (OS.get_window_size().y - (top_margin.rect_size.y + bot_margin.rect_size.y)) * Vector2.ONE
 	grid.rect_min_size.x = max(480, grid.rect_min_size.x)
 	grid.rect_min_size.y = max(480, grid.rect_min_size.y)
-	
+
 	$CenterOverlay.rect_position = grid.rect_global_position
 	$CenterOverlay.rect_size = grid.rect_size
-	$TopBar.rect_position = top_margin.rect_global_position + Vector2(0, 15)
+	$TopBar.rect_position.y = top_margin.rect_global_position.y + 15
+	$TopBar.rect_position.x = grid.rect_global_position.x
 	$TopBar.rect_size = Vector2(grid.rect_size.x, top_margin.rect_size.y - 15)
+	
+	if session_misses > 0:
+		accuracy = 100 * session_clicks / (session_misses + session_clicks)
+	else:
+		accuracy = 100
 	
 func _on_viewport_size_changed():
 	$HBoxContainer.rect_size = OS.get_window_size()

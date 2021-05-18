@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://assets/fonts/font_small.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/fonts/font_top_small.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/PromptLabel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/ChessSettings.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/StreakPanel.tscn" type="PackedScene" id=4]
@@ -8,73 +8,70 @@
 [ext_resource path="res://ui/SessionPanelFreeplay.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/Countdown.tscn" type="PackedScene" id=7]
 [ext_resource path="res://grid/vision/GridVision.gd" type="Script" id=8]
+[ext_resource path="res://assets/fonts/font_top.tres" type="DynamicFont" id=9]
+[ext_resource path="res://assets/fonts/font_large_top.tres" type="DynamicFont" id=10]
 
 [node name="GridVision" instance=ExtResource( 5 )]
 script = ExtResource( 8 )
 
-[node name="MarginContainer" parent="HBoxContainer" index="0"]
-margin_bottom = 873.0
-
-[node name="VBoxContainer" parent="HBoxContainer" index="1"]
-margin_top = 0.0
-margin_bottom = 873.0
-
-[node name="HBoxContainer" parent="HBoxContainer/VBoxContainer" index="1"]
-margin_bottom = 821.0
-
-[node name="Toolbar" parent="HBoxContainer/VBoxContainer/HBoxContainer" index="1"]
-margin_bottom = 737.0
-
 [node name="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar" index="0"]
-margin_bottom = 722.0
+margin_bottom = 794.0
 
-[node name="ChessSettings" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="0" instance=ExtResource( 3 )]
-margin_right = 444.0
-margin_bottom = 138.0
-
-[node name="SessionPanelFreeplay" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="1" instance=ExtResource( 6 )]
-margin_top = 163.0
-margin_right = 444.0
-margin_bottom = 429.0
-
-[node name="RecordPanel" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="2" instance=ExtResource( 4 )]
-margin_top = 454.0
-margin_right = 444.0
-margin_bottom = 652.0
-title = "Best"
-
-[node name="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="3"]
-margin_top = 677.0
-margin_bottom = 707.0
-size_flags_vertical = 10
-
-[node name="BotMargin" parent="HBoxContainer/VBoxContainer" index="2"]
-margin_top = 825.0
-margin_bottom = 873.0
+[node name="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer" index="0"]
+margin_top = 749.0
+margin_bottom = 779.0
 
 [node name="TargetLabel" type="Label" parent="TopBar" index="0"]
-margin_bottom = 32.0
+margin_top = 8.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 9 )
 
 [node name="ClickCountLabel" type="Label" parent="TopBar" index="1"]
 margin_left = 4.0
 margin_right = 4.0
-margin_bottom = 32.0
+margin_bottom = 48.0
 size_flags_horizontal = 10
+custom_fonts/font = ExtResource( 10 )
 
 [node name="TimeLabel" type="Label" parent="TopBar" index="2"]
 margin_left = 8.0
-margin_top = 4.0
+margin_top = 12.0
 margin_right = 8.0
-margin_bottom = 28.0
+margin_bottom = 36.0
 size_flags_horizontal = 10
 custom_fonts/font = ExtResource( 1 )
 
 [node name="Countdown" parent="CenterOverlay" index="0" instance=ExtResource( 7 )]
-margin_right = 72.0
-margin_bottom = 72.0
+margin_right = 432.0
+margin_bottom = 102.0
 
 [node name="PromptLabel" parent="CenterOverlay" index="1" instance=ExtResource( 2 )]
-margin_left = 36.0
-margin_right = 36.0
-margin_bottom = 72.0
+margin_left = 216.0
+margin_top = 15.0
+margin_right = 216.0
+margin_bottom = 87.0
+
+[node name="VBoxContainer" parent="Toolbar" index="0"]
+margin_bottom = 782.0
+
+[node name="SessionPanelFreeplay" parent="Toolbar/VBoxContainer" index="0" instance=ExtResource( 6 )]
+margin_right = 444.0
+margin_bottom = 289.0
+
+[node name="RecordPanel" parent="Toolbar/VBoxContainer" index="1" instance=ExtResource( 4 )]
+margin_top = 314.0
+margin_right = 444.0
+margin_bottom = 497.0
+title = "Best"
+
+[node name="ChessSettings" parent="Toolbar/VBoxContainer" index="2" instance=ExtResource( 3 )]
+margin_top = 522.0
+margin_right = 444.0
+margin_bottom = 712.0
+size_flags_vertical = 10
+
+[node name="Button" parent="Toolbar/VBoxContainer" index="3"]
+margin_top = 737.0
+margin_bottom = 767.0
 [connection signal="countdown_finished" from="CenterOverlay/Countdown" to="." method="_on_Countdown_countdown_finished"]
+[connection signal="colour_changed" from="Toolbar/VBoxContainer/ChessSettings" to="." method="_on_ChessSettings_colour_changed"]

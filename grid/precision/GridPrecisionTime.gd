@@ -21,20 +21,24 @@ func custom_success():
 	
 	if current_clicks > GameData.CLICK_TARGET:
 		disable_pieces()
+		hide_pieces()
 		$TopBar/TargetLabel.visible = 0
-		$CenterOverlay/RetryButton.show_and_hold($TopBar/TimeLabel.text, 1)
+		$CenterOverlay/RetryButton.show_and_hold(get_time_string(time_since_miss, time_since_miss >= 60000), 1)
 		$Timer.stop()
 		
-		if time_since_miss < GameData.record_time:
-			GameData.record_time = time_since_miss
-			GameData.record_clicks = current_clicks
-			record_panel.set_clicks(GameData.record_clicks)
-			record_panel.set_time(get_time_string(GameData.record_time))
+		check_record()
+		
+		if time_since_miss < GameData.score["precision"]["time"]["time"]:
+			GameData.score["precision"]["time"]["time"] = time_since_miss
+			GameData.score["precision"]["time"]["clicks"] = current_clicks
+			record_panel.set_clicks(GameData.score["precision"]["time"]["clicks"])
+			record_panel.set_time(get_time_string(GameData.score["precision"]["time"]["time"]))
 	else:
 		choose_rand_tile()
 	
 func custom_misclick():
 	disable_pieces()
+	hide_pieces()
 	$CenterOverlay/Countdown.mouse_filter = Control.MOUSE_FILTER_STOP
 	$CenterOverlay/RetryButton.show_and_hold("Miss", 0)
 	$Timer.stop()

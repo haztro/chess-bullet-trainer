@@ -21,30 +21,30 @@ __meta__ = {
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
 margin_left = 15.0
 margin_top = 15.0
-margin_right = 463.0
-margin_bottom = 183.0
+margin_right = 348.0
+margin_bottom = 168.0
 custom_constants/separation = 20
 
 [node name="Title" type="Label" parent="VBoxContainer2"]
-margin_right = 448.0
+margin_right = 333.0
 margin_bottom = 32.0
 custom_fonts/font = ExtResource( 2 )
 text = "Streak"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer2"]
 margin_top = 52.0
-margin_right = 448.0
-margin_bottom = 168.0
-custom_constants/separation = 20
+margin_right = 333.0
+margin_bottom = 153.0
+custom_constants/separation = 5
 
 [node name="ImageTextLabel" parent="VBoxContainer2/VBoxContainer" instance=ExtResource( 4 )]
-margin_right = 448.0
+margin_right = 333.0
 tex = ExtResource( 6 )
 label = "Time:"
 
 [node name="ImageTextLabel2" parent="VBoxContainer2/VBoxContainer" instance=ExtResource( 4 )]
-margin_top = 68.0
-margin_right = 448.0
-margin_bottom = 116.0
+margin_top = 53.0
+margin_right = 333.0
+margin_bottom = 101.0
 tex = ExtResource( 3 )
-label = "Clicks:"
+label = "Hits:"

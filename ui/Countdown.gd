@@ -14,7 +14,7 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("skip") and !$Timer.is_stopped():
 		finish_countdown()
-		$Tween.interpolate_property(self, "modulate:a", modulate.a, 0, 0.3, 0, 1)
+		$Tween.interpolate_property($Label, "modulate:a", $Label.modulate.a, 0, 0.3, 0, 1)
 		$Tween.start()
 
 func start():
@@ -25,20 +25,28 @@ func start():
 
 func show_label():
 	$Label.text = str(time)
-	$Tween.interpolate_property(self, "modulate:a", modulate.a, 1, 0.3, 0, 1)
+	$Tween.interpolate_property($Label, "modulate:a", $Label.modulate.a, 1, 0.3, 0, 1)
+	$Tween.start()
+	$Tween.interpolate_property($Label2, "modulate:a", $Label2.modulate.a, 1, 0.3, 0, 1)
 	$Tween.start()
 	yield($Tween, "tween_all_completed")
-	$Tween.interpolate_property(self, "modulate:a", modulate.a, 1, 0.3, 0, 1)
+	if $Timer.is_stopped(): return
+	$Tween.interpolate_property($Label, "modulate:a", $Label.modulate.a, 1, 0.3, 0, 1)
 	$Tween.start()
 	yield($Tween, "tween_all_completed")
-	$Tween.interpolate_property(self, "modulate:a", modulate.a, 0, 0.3, 0, 1)
+	if $Timer.is_stopped(): return
+	$Tween.interpolate_property($Label, "modulate:a", $Label.modulate.a, 0, 0.3, 0, 1)
 	$Tween.start()
 	yield($Tween, "tween_all_completed")
+	if $Timer.is_stopped(): return
 	
+	print("FINISHED")
 	if time <= 1:
 		finish_countdown()
 		
 func finish_countdown():
+	$Tween.interpolate_property($Label2, "modulate:a", $Label2.modulate.a, 0, 0.3, 0, 1)
+	$Tween.start()
 	emit_signal("countdown_finished")
 	time = 3
 	mouse_filter = Control.MOUSE_FILTER_IGNORE

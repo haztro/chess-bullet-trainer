@@ -5,8 +5,8 @@ var session_time = 0
 
 var chess_tile_scene = preload("res://grid/ChessTile.tscn")
 
-onready var session_panel = get_node("HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer/SessionPanelFreeplay")
-onready var record_panel = get_node("HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer/RecordPanel")
+onready var session_panel = get_node("Toolbar/VBoxContainer/SessionPanelFreeplay")
+onready var record_panel = get_node("Toolbar/VBoxContainer/RecordPanel")
 
 
 # Called when the node enters the scene tree for the first time.
@@ -17,30 +17,35 @@ func _ready():
 	$CenterOverlay/Countdown.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(delta):	
 	session_panel.set_clicks(session_clicks)
 	session_panel.set_time(get_time_string(session_time))
 	session_panel.set_misses(session_misses)
+	session_panel.set_accuracy(accuracy)
 	update_top_bar_labels()
-	check_record()
+	
+	record_panel.set_clicks(GameData.score["precision"]["freeplay"]["clicks"])
+	record_panel.set_time(get_time_string(GameData.score["precision"]["freeplay"]["time"]))
+
+	var c = get_closest_tile($ActivePiece)
+	if $ActivePiece.is_grabbed:
+		c.get_node("Panel").visible = 1
+	
 
 func update_top_bar_labels():
 #	$TopBar/TargetLabel.text = target
 	$TopBar/ClickCountLabel.text = str(current_clicks)
-	$TopBar/TimeLabel.text = get_time_string(time_since_miss)
+	$TopBar/TimeLabel.text = get_time_string(time_since_miss, time_since_miss >= 60000)
 	
 func check_record():
-	if current_clicks >= GameData.record_clicks:
-		GameData.record_clicks = current_clicks
-		GameData.record_time = time_since_miss
-		
-	record_panel.set_clicks(GameData.record_clicks)
-	record_panel.set_time(get_time_string(GameData.record_time))
+	if current_clicks >= GameData.score["precision"]["freeplay"]["clicks"]:
+		GameData.score["precision"]["freeplay"]["clicks"] = current_clicks
+		GameData.score["precision"]["freeplay"]["time"] = time_since_miss
 		
 func check_record_time():
-	if current_clicks == GameData.record_clicks:
-		if time_since_miss < GameData.record_time:
-			GameData.record_time = time_since_miss
+	if current_clicks == GameData.score["precision"]["freeplay"]["clicks"]:
+		if time_since_miss < GameData.score["precision"]["freeplay"]["time"]:
+			GameData.score["precision"]["freeplay"]["time"] = time_since_miss
 
 func choose_rand_tile():
 	randomize()
@@ -61,18 +66,26 @@ func choose_rand_tile():
 	$TakePiece.start_square = $ActivePiece.target_square
 	$TakePiece.position = $TakePiece.start_square.rect_global_position
 	
-#	for pos in Chess.get_valid_moves(p.piece_id, p.start_square.pos):
-#		tiles[pos].get_node("ColorRect").color = Color(0, 0, 0, 1)
-func _on_ActivePiece_released(piece):
+
+func get_closest_tile(piece):
 	var min_dis = 9999999
 	var closest = null
-	
 	# Get closest 
 	for t in tiles.values():
+		t.get_node("Panel").visible = 0
 		var d = piece.position.distance_to(t.rect_global_position)
 		if d < min_dis:
 			min_dis = d
 			closest = t
+			
+	return closest
+	
+	
+#	for pos in Chess.get_valid_moves(p.piece_id, p.start_square.pos):
+#		tiles[pos].get_node("ColorRect").color = Color(0, 0, 0, 1)
+func _on_ActivePiece_released(piece):
+
+	var closest = get_closest_tile(piece)
 	
 	if closest == $ActivePiece.target_square:
 		
@@ -93,12 +106,18 @@ func enable_pieces():
 	$ActivePiece.get_node("Button").disabled = 0
 	
 func hide_pieces():
-	$TakePiece.visible = 0
-	$ActivePiece.visible = 0
+	$Tween.interpolate_property($TakePiece, "modulate:a", $TakePiece.modulate.a, 0, 0.3, 0, 1)
+	$Tween.interpolate_property($ActivePiece, "modulate:a", $ActivePiece.modulate.a, 0, 0.3, 0, 1)
+	$Tween.start()
+#	$TakePiece.visible = 0
+#	$ActivePiece.visible = 0
 	
 func show_pieces():
-	$TakePiece.visible = 1
-	$ActivePiece.visible = 1
+	$Tween.interpolate_property($TakePiece, "modulate:a", $TakePiece.modulate.a, 1, 0.3, 0, 1)
+	$Tween.interpolate_property($ActivePiece, "modulate:a", $ActivePiece.modulate.a, 1, 0.3, 0, 1)
+	$Tween.start()
+#	$TakePiece.visible = 1
+#	$ActivePiece.visible = 1
 	
 func custom_success():
 	choose_rand_tile()
@@ -109,6 +128,8 @@ func custom_misclick():
 	pass
 		
 func misclick():
+	check_record()
+	check_record_time()
 	custom_misclick()
 #	hide_pieces()
 	current_clicks = 0
@@ -120,7 +141,6 @@ func misclick():
 # Overriding function so need to update currneet clicks
 func click_registered(btn):
 	misclick()
-	check_record()
 	
 func custom_start():
 	pass

@@ -13,3 +13,9 @@ func _ready():
 
 func set_misses(misses):
 	$VBoxContainer2/VBoxContainer/ImageTextLabel3.set_value(misses)
+	
+func set_accuracy(value):
+	$VBoxContainer2/VBoxContainer/ImageTextLabel4.set_value(str(value) + "%")
+	
+func set_speed(value):
+	$VBoxContainer2/VBoxContainer/ImageTextLabel3.set_value(value)

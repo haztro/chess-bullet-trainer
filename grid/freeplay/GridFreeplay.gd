@@ -2,8 +2,8 @@ extends "res://grid/Grid.gd"
 
 var session_time = 0
 
-onready var session_panel = get_node("HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer/SessionPanelFreeplay")
-onready var record_panel = get_node("HBoxContainer/VBoxContainer/HBoxContainer/Toolbar/VBoxContainer/RecordPanel")
+onready var session_panel = get_node("Toolbar/VBoxContainer/SessionPanelFreeplay")
+onready var record_panel = get_node("Toolbar/VBoxContainer/RecordPanel")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,23 +25,24 @@ func _process(delta):
 	session_panel.set_clicks(session_clicks)
 	session_panel.set_time(get_time_string(session_time))
 	session_panel.set_misses(session_misses)
+	session_panel.set_accuracy(accuracy)
 	$TopBar/ClickCountLabel.text = str(current_clicks)
-	$TopBar/TimeLabel.text = get_time_string(time_since_miss)
-	
-	if current_clicks >= GameData.record_clicks:
-		GameData.record_clicks = current_clicks
-		GameData.record_time = time_since_miss
+	$TopBar/TimeLabel.text = get_time_string(time_since_miss, time_since_miss >= 60000)
 		
-	record_panel.set_clicks(GameData.record_clicks)
-	record_panel.set_time(get_time_string(GameData.record_time))
+	record_panel.set_clicks(GameData.score["freeplay"][GameData.difficulties[GameData.difficulty]][GameData.board_sizes[GameData.board_size]]["clicks"])
+	record_panel.set_time(get_time_string(GameData.score["freeplay"][GameData.difficulties[GameData.difficulty]][GameData.board_sizes[GameData.board_size]]["time"]))
 
 func successful_click():
 	choose_rand_tile()
 	
 func missed_click():
-	if current_clicks == GameData.record_clicks:
-		if time_since_miss < GameData.record_time:
-			GameData.record_time = time_since_miss
+	if current_clicks >= GameData.score["freeplay"][GameData.difficulties[GameData.difficulty]][GameData.board_sizes[GameData.board_size]]["clicks"]:
+		GameData.score["freeplay"][GameData.difficulties[GameData.difficulty]][GameData.board_sizes[GameData.board_size]]["clicks"] = current_clicks
+		GameData.score["freeplay"][GameData.difficulties[GameData.difficulty]][GameData.board_sizes[GameData.board_size]]["time"] = time_since_miss	
+
+	if current_clicks == GameData.score["freeplay"][GameData.difficulties[GameData.difficulty]][GameData.board_sizes[GameData.board_size]]["clicks"]:
+		if time_since_miss < GameData.score["freeplay"][GameData.difficulties[GameData.difficulty]][GameData.board_sizes[GameData.board_size]]["time"]:
+			GameData.score["freeplay"][GameData.difficulties[GameData.difficulty]][GameData.board_sizes[GameData.board_size]]["time"] = time_since_miss
 			
 func timer_timeout():
 	session_time += time_passed

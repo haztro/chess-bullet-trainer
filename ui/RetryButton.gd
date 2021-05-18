@@ -12,8 +12,11 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	$ColorRect.rect_position.x = -rect_position.x
+	$ColorRect.rect_position.y = -150
+	$ColorRect.rect_size.x = get_parent().rect_size.x
+	$ColorRect.rect_size.y = 220
 
 
 func show_and_hold(value, win):
@@ -28,6 +31,7 @@ func show_and_hold(value, win):
 
 func hide_button():
 	disabled = 1
-	visible = 0
 	$Tween.interpolate_property(self, "modulate:a", modulate.a, 0, 0.2, 0, 1)
 	$Tween.start()
+	yield($Tween, "tween_all_completed")
+	visible = 0

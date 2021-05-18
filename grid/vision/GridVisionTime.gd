@@ -24,14 +24,14 @@ func check_record_time():
 func successful_click():
 	if current_clicks > GameData.CLICK_TARGET:
 		$TopBar/TargetLabel.visible = 0
-		$CenterOverlay/RetryButton.show_and_hold($TopBar/TimeLabel.text, 1)
+		$CenterOverlay/RetryButton.show_and_hold(get_time_string(time_since_miss), 1)
 		$Timer.stop()
 		
-		if time_since_miss < GameData.record_time:
-			GameData.record_time = time_since_miss
-			GameData.record_clicks = current_clicks
-			record_panel.set_clicks(GameData.record_clicks)
-			record_panel.set_time(get_time_string(GameData.record_time))
+		if time_since_miss < GameData.score["vision"]["time"]["time"]:
+			GameData.score["vision"]["time"]["time"] = time_since_miss
+			GameData.score["vision"]["time"]["clicks"] = current_clicks
+			record_panel.set_clicks(GameData.score["vision"]["time"]["clicks"])
+			record_panel.set_time(get_time_string(GameData.score["vision"]["time"]["time"]))
 	else:
 		choose_rand_tile()
 	
@@ -40,7 +40,6 @@ func missed_click():
 	$CenterOverlay/RetryButton.show_and_hold("Miss", 0)
 	target = ""
 	$Timer.stop()
-
 
 func _on_RetryButton_pressed():
 	$CenterOverlay/RetryButton.hide_button()

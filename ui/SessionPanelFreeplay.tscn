@@ -1,23 +1,31 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/StreakPanel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ui/SessionPanelFreeplay.gd" type="Script" id=2]
 [ext_resource path="res://ui/ImageTextLabel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/art/cross.png" type="Texture" id=4]
+[ext_resource path="res://assets/art/target.png" type="Texture" id=5]
 
 [node name="SessionPanelFreeplay" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 title = "Session"
 
 [node name="VBoxContainer2" parent="." index="0"]
-margin_bottom = 235.0
+margin_bottom = 274.0
 
 [node name="VBoxContainer" parent="VBoxContainer2" index="1"]
-margin_bottom = 220.0
+margin_bottom = 259.0
 
 [node name="ImageTextLabel3" parent="VBoxContainer2/VBoxContainer" index="2" instance=ExtResource( 3 )]
-margin_top = 136.0
+margin_top = 106.0
 margin_right = 333.0
-margin_bottom = 184.0
+margin_bottom = 154.0
 tex = ExtResource( 4 )
-label = "Misses"
+label = "Misses:"
+
+[node name="ImageTextLabel4" parent="VBoxContainer2/VBoxContainer" index="3" instance=ExtResource( 3 )]
+margin_top = 159.0
+margin_right = 333.0
+margin_bottom = 207.0
+tex = ExtResource( 5 )
+label = "Accuracy:"

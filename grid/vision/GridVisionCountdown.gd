@@ -3,7 +3,7 @@ extends "res://grid/vision/GridVision.gd"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	record_panel.set_clicks(GameData.record_clicks)
+	record_panel.set_clicks(GameData.score["vision"]["countdown"]["clicks"])
 	$Timer2.wait_time = GameData.COUNTDOWN_TIME
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,8 +16,8 @@ func update_top_bar_labels():
 	$TopBar/TimeLabel.text = get_time_string(GameData.COUNTDOWN_TIME * 1000 - time_since_miss, 0)
 
 func check_record():
-	GameData.record_time = GameData.COUNTDOWN_TIME * 1000
-	record_panel.set_time(get_time_string(GameData.record_time, 0))
+	GameData.score["vision"]["countdown"]["time"] = GameData.COUNTDOWN_TIME * 1000
+	record_panel.set_time(get_time_string(GameData.score["vision"]["countdown"]["time"], 0))
 		
 func check_record_time():
 	pass
@@ -48,7 +48,9 @@ func _on_Timer2_timeout():
 	$CenterOverlay/RetryButton.show_and_hold(str(current_clicks), 0)
 	target = ""
 	
-	if current_clicks > GameData.record_clicks:
-		GameData.record_clicks = current_clicks
-		record_panel.set_clicks(GameData.record_clicks)
+	check_record()
+	
+	if current_clicks > GameData.score["vision"]["countdown"]["clicks"]:
+		GameData.score["vision"]["countdown"]["clicks"] = current_clicks
+		record_panel.set_clicks(GameData.score["vision"]["countdown"]["clicks"])
 	

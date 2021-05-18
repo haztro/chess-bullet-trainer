@@ -5,6 +5,9 @@ enum ChessMode {FREEPLAY, TIME, COUNTDOWN}
 enum BoardSize {SIZE_4x4, SIZE_6x6, SIZE_8x8}
 enum Difficulty {EASY, NORMAL, HARD, EXTREME}
 
+const difficulties = {Difficulty.EASY : "easy", Difficulty.NORMAL : "normal", Difficulty.HARD : "hard", Difficulty.EXTREME : "extreme"}
+const board_sizes = {BoardSize.SIZE_4x4 : "4x4", BoardSize.SIZE_6x6 : "6x6", BoardSize.SIZE_8x8 : "8x8"}
+
 const CLICK_TARGET = 5
 const COUNTDOWN_TIME = 5
 
@@ -14,6 +17,30 @@ var mode = 0
 var chess_mode = 0
 var board_size = 0
 var difficulty = 0
+var score = {"freeplay" : {"easy" : 
+								{"8x8" : {"clicks":0, "time":0}, 
+								"6x6" : {"clicks":0, "time":0}, 
+								"4x4" : {"clicks":0, "time":0}}, 
+							"normal" : 
+								{"8x8" : {"clicks":0, "time":0}, 
+								"6x6" : {"clicks":0, "time":0}, 
+								"4x4" : {"clicks":0, "time":0}}, 
+							"hard" :
+								{"8x8" : {"clicks":0, "time":0}, 
+								"6x6" : {"clicks":0, "time":0}, 
+								"4x4" : {"clicks":0, "time":0}}, 
+							"extreme" : 
+								{"8x8" : {"clicks":0, "time":0}, 
+								"6x6" : {"clicks":0, "time":0}, 
+								"4x4" : {"clicks":0, "time":0}}}, 
+			"vision" : 
+				{"freeplay" : {"clicks":0, "time":0}, 
+				"time" : {"clicks":0, "time":0}, 
+				"countdown" : {"clicks":0, "time":0}}, 
+			"precision" : 
+				{"freeplay" : {"clicks":0, "time":0}, 
+				"time" : {"clicks":0, "time":0}, 
+				"countdown" : {"clicks":0, "time":0}}}
 
 var main_menu_scene = preload("res://Main.tscn")
 var size_menu_scene = preload("res://ui/SizeMenu.tscn")
