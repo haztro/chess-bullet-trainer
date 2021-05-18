@@ -24,7 +24,7 @@ func check_record_time():
 func successful_click():
 	if current_clicks > GameData.CLICK_TARGET:
 		$TopBar/TargetLabel.visible = 0
-		$CenterOverlay/RetryButton.show_and_hold(get_time_string(time_since_miss), 1)
+		$CenterOverlay/RetryButton.show_and_hold(get_time_string(time_since_miss, time_since_miss >= 60000), 1)
 		$Timer.stop()
 		
 		if time_since_miss < GameData.score["vision"]["time"]["time"]:

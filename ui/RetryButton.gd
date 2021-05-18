@@ -8,7 +8,7 @@ extends Button
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -17,9 +17,13 @@ func _process(delta):
 	$ColorRect.rect_position.y = -150
 	$ColorRect.rect_size.x = get_parent().rect_size.x
 	$ColorRect.rect_size.y = 220
+	
+	if Input.is_action_just_pressed("skip") and !disabled:
+		emit_signal("pressed")
 
 
 func show_and_hold(value, win):
+	mouse_filter = Control.MOUSE_FILTER_STOP
 	visible = 1
 	disabled = 0
 	$Node2D/Label.text = value
@@ -30,6 +34,7 @@ func show_and_hold(value, win):
 	$Tween.start()
 
 func hide_button():
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	disabled = 1
 	$Tween.interpolate_property(self, "modulate:a", modulate.a, 0, 0.2, 0, 1)
 	$Tween.start()

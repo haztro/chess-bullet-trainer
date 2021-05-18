@@ -10,6 +10,7 @@ var audio_streams = {}
 var audio_buses = {}
 var audio_stream_players = {}
 var time_last_played = {}
+var muted = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,24 +22,25 @@ func _ready():
 		time_last_played[key] = 0
 
 func play(sound_name, volume = 0, pitch = 1.0, fade = 0):
-	var stream_player = AudioStreamPlayer.new()
-	stream_player.connect("finished", self, "_on_sound_finished", [stream_player])
-	stream_player.set_stream(audio_streams[sound_name])
-	stream_player.set_bus(audio_buses[sound_name])
-	stream_player.set_pitch_scale(pitch)
-	stream_player.set_volume_db(volume)
-	add_sound(stream_player)
-	
-	if fade != 0:
-		stream_player.volume_db = -80
-		var t = Tween.new()
-		t.connect("tween_completed", self, "_on_fade_finished", [t])
-		t.interpolate_property(stream_player, "volume_db", -80, volume, fade, Tween.TRANS_LINEAR, Tween.EASE_IN)
-		add_child(t)
-		t.start()
-	
-	stream_player.play()
-	time_last_played[sound_name] = OS.get_ticks_msec()
+	if !muted:
+		var stream_player = AudioStreamPlayer.new()
+		stream_player.connect("finished", self, "_on_sound_finished", [stream_player])
+		stream_player.set_stream(audio_streams[sound_name])
+		stream_player.set_bus(audio_buses[sound_name])
+		stream_player.set_pitch_scale(pitch)
+		stream_player.set_volume_db(volume)
+		add_sound(stream_player)
+		
+		if fade != 0:
+			stream_player.volume_db = -80
+			var t = Tween.new()
+			t.connect("tween_completed", self, "_on_fade_finished", [t])
+			t.interpolate_property(stream_player, "volume_db", -80, volume, fade, Tween.TRANS_LINEAR, Tween.EASE_IN)
+			add_child(t)
+			t.start()
+		
+		stream_player.play()
+		time_last_played[sound_name] = OS.get_ticks_msec()
 
 func stop(sound_name):
 	pass
@@ -67,6 +69,9 @@ func _on_sound_finished(sound):
 func _on_fade_finished(object, path, fade):
 	fade.queue_free()
 	remove_child(fade)
+	
+func toggle_mute():
+	muted = !muted
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

@@ -33,6 +33,7 @@ func _ready():
 	last_time = OS.get_ticks_msec()
 	get_tree().get_root().connect("size_changed", self, "_on_viewport_size_changed")
 	_on_viewport_size_changed()
+	VisualServer.set_default_clear_color(Color(0.625, 0.562221, 0.478516))
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -64,6 +65,10 @@ func _process(delta):
 		accuracy = 100 * session_clicks / (session_misses + session_clicks)
 	else:
 		accuracy = 100
+	
+func _input(event):
+	if Input.is_action_just_pressed("back"):
+		GameData.goto_main_menu()
 	
 func _on_viewport_size_changed():
 	$HBoxContainer.rect_size = OS.get_window_size()
@@ -143,4 +148,5 @@ func _on_Timer_timeout():
 
 
 func _on_Button_pressed():
+	AudioManager.play("click", 0, 2)
 	GameData.goto_main_menu()

@@ -65,8 +65,11 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if Input.is_action_just_pressed("fullscreen"):
+		OS.window_fullscreen = !OS.window_fullscreen
+	if Input.is_action_just_pressed("mute"):
+		AudioManager.toggle_mute()
 
 func start_freeplay(difficulty_selection):
 	difficulty = difficulty_selection

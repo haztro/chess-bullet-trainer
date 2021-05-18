@@ -1,11 +1,18 @@
-[gd_resource type="Theme" load_steps=6 format=2]
+[gd_resource type="Theme" load_steps=8 format=2]
 
-[ext_resource path="res://assets/fonts/font_small.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/fonts/font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/buttonstyle.tres" type="StyleBox" id=2]
 [ext_resource path="res://assets/button_stylehover.tres" type="StyleBox" id=3]
 [ext_resource path="res://assets/button_style_pressed.tres" type="StyleBox" id=4]
+[ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=5]
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="DynamicFont" id=4]
+size = 18
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 5 )
 
 [resource]
 default_font = ExtResource( 1 )
@@ -16,7 +23,12 @@ Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
 Button/constants/hseparation = 2
 Button/fonts/font = null
 Button/styles/disabled = null
-Button/styles/focus = SubResource( 1 )
+Button/styles/focus = SubResource( 3 )
 Button/styles/hover = ExtResource( 3 )
 Button/styles/normal = ExtResource( 2 )
 Button/styles/pressed = ExtResource( 4 )
+TooltipLabel/colors/font_color = Color( 1, 1, 1, 1 )
+TooltipLabel/colors/font_color_shadow = Color( 0, 0, 0, 0.1 )
+TooltipLabel/constants/shadow_offset_x = 1
+TooltipLabel/constants/shadow_offset_y = 1
+TooltipLabel/fonts/font = SubResource( 4 )

@@ -1,62 +1,153 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://assets/theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/font_large_top.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/art/pawnblack.png" type="Texture" id=4]
+[ext_resource path="res://assets/art/pawnwhite.png" type="Texture" id=5]
+[ext_resource path="res://ui/Background.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 7 )
 
 [node name="Main" type="MarginContainer"]
 margin_right = 1021.0
-margin_bottom = 598.0
+margin_bottom = 597.0
 theme = ExtResource( 1 )
-custom_constants/margin_top = 20
+custom_constants/margin_top = 40
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_top = 20.0
-margin_right = 1021.0
-margin_bottom = 598.0
-custom_constants/separation = 70
+[node name="Background" parent="." instance=ExtResource( 6 )]
 
-[node name="Label" type="Label" parent="VBoxContainer"]
-margin_left = 342.0
-margin_right = 678.0
-margin_bottom = 24.0
-size_flags_horizontal = 4
-text = "Bullet Trainer"
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_top = 40.0
+margin_right = 1021.0
+margin_bottom = 597.0
+custom_constants/separation = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 94.0
+margin_left = 174.0
+margin_right = 846.0
+margin_bottom = 168.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+custom_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+margin_left = 86.0
+margin_right = 586.0
+margin_bottom = 100.0
+size_flags_horizontal = 6
+custom_constants/separation = 30
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = -1.0
+margin_right = 99.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+size_flags_horizontal = 4
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 130.0
+margin_top = 26.0
+margin_right = 370.0
+margin_bottom = 74.0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 3 )
+text = "Chess"
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 399.0
+margin_right = 499.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+size_flags_horizontal = 4
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 5
+flip_h = true
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer"]
+margin_top = 120.0
+margin_right = 672.0
+margin_bottom = 168.0
+size_flags_horizontal = 6
+custom_fonts/font = ExtResource( 3 )
+text = "Bullet Trainer"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 188.0
 margin_right = 1021.0
-margin_bottom = 234.0
+margin_bottom = 484.0
+size_flags_vertical = 6
 custom_constants/separation = 25
 
-[node name="FreeplayBtn" type="Button" parent="VBoxContainer/VBoxContainer"]
+[node name="FreeplayBtn" type="Button" parent="VBoxContainer/VBoxContainer3"]
 margin_left = 335.0
 margin_right = 685.0
-margin_bottom = 30.0
+margin_bottom = 82.0
 rect_min_size = Vector2( 350, 0 )
+hint_tooltip = "No pressure, just click the black squares..."
 size_flags_horizontal = 4
 text = "Freeplay"
 
-[node name="VisionBtn" type="Button" parent="VBoxContainer/VBoxContainer"]
+[node name="VisionBtn" type="Button" parent="VBoxContainer/VBoxContainer3"]
 margin_left = 335.0
-margin_top = 55.0
+margin_top = 107.0
 margin_right = 685.0
-margin_bottom = 85.0
+margin_bottom = 189.0
 rect_min_size = Vector2( 350, 0 )
+hint_tooltip = "Improve your visualisation of chess coordinates."
 size_flags_horizontal = 4
 text = "Vision"
 
-[node name="PrecisionBtn" type="Button" parent="VBoxContainer/VBoxContainer"]
+[node name="PrecisionBtn" type="Button" parent="VBoxContainer/VBoxContainer3"]
 margin_left = 335.0
-margin_top = 110.0
+margin_top = 214.0
 margin_right = 685.0
-margin_bottom = 140.0
+margin_bottom = 296.0
 rect_min_size = Vector2( 350, 0 )
+hint_tooltip = "Improve your speed and accuracy in digital chess."
 size_flags_horizontal = 4
 text = "Precision"
-[connection signal="pressed" from="VBoxContainer/VBoxContainer/FreeplayBtn" to="." method="_on_FreeplayBtn_pressed"]
-[connection signal="pressed" from="VBoxContainer/VBoxContainer/VisionBtn" to="." method="_on_VisionBtn_pressed"]
-[connection signal="pressed" from="VBoxContainer/VBoxContainer/PrecisionBtn" to="." method="_on_PrecisionBtn_pressed"]
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 504.0
+margin_right = 1021.0
+margin_bottom = 557.0
+size_flags_vertical = 10
+custom_constants/margin_right = 0
+custom_constants/margin_left = 12
+custom_constants/margin_bottom = 11
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
+margin_left = 12.0
+margin_right = 1021.0
+margin_bottom = 42.0
+custom_constants/separation = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer3"]
+margin_right = 1009.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 1 )
+text = "[F] Fullscreen"
+
+[node name="Label2" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer3"]
+margin_top = 26.0
+margin_right = 1009.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 1 )
+text = "[M] Mute Sound"
+[connection signal="pressed" from="VBoxContainer/VBoxContainer3/FreeplayBtn" to="." method="_on_FreeplayBtn_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer3/VisionBtn" to="." method="_on_VisionBtn_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer3/PrecisionBtn" to="." method="_on_PrecisionBtn_pressed"]

@@ -1,11 +1,18 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://grid/Grid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/fonts/font_large_top.tres" type="DynamicFont" id=2]
 [ext_resource path="res://grid/freeplay/GridFreeplay.gd" type="Script" id=3]
+[ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://ui/SessionPanelFreeplay.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/Countdown.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/StreakPanel.tscn" type="PackedScene" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 4 )
 
 [node name="GridFreeplay" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
@@ -33,11 +40,12 @@ custom_fonts/font = ExtResource( 2 )
 
 [node name="TimeLabel" type="Label" parent="TopBar" index="2"]
 margin_left = 56.0
-margin_top = 12.0
+margin_top = 8.0
 margin_right = 56.0
-margin_bottom = 36.0
+margin_bottom = 40.0
 size_flags_horizontal = 10
 size_flags_vertical = 6
+custom_fonts/font = SubResource( 1 )
 
 [node name="Countdown" parent="CenterOverlay" index="0" instance=ExtResource( 6 )]
 margin_right = 432.0
@@ -46,7 +54,7 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 
 [node name="VBoxContainer" parent="Toolbar" index="0"]
-margin_bottom = 567.0
+margin_bottom = 611.0
 
 [node name="SessionPanelFreeplay" parent="Toolbar/VBoxContainer" index="0" instance=ExtResource( 5 )]
 margin_right = 444.0
@@ -60,6 +68,6 @@ title = "Best"
 
 [node name="Button" parent="Toolbar/VBoxContainer" index="2"]
 margin_top = 522.0
-margin_bottom = 552.0
+margin_bottom = 596.0
 size_flags_vertical = 10
 [connection signal="countdown_finished" from="CenterOverlay/Countdown" to="." method="_on_Countdown_countdown_finished"]

@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://assets/fonts/font_top_small.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://ui/PromptLabel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/ChessSettings.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/StreakPanel.tscn" type="PackedScene" id=4]
@@ -10,6 +10,12 @@
 [ext_resource path="res://grid/vision/GridVision.gd" type="Script" id=8]
 [ext_resource path="res://assets/fonts/font_top.tres" type="DynamicFont" id=9]
 [ext_resource path="res://assets/fonts/font_large_top.tres" type="DynamicFont" id=10]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
 
 [node name="GridVision" instance=ExtResource( 5 )]
 script = ExtResource( 8 )
@@ -35,11 +41,11 @@ custom_fonts/font = ExtResource( 10 )
 
 [node name="TimeLabel" type="Label" parent="TopBar" index="2"]
 margin_left = 8.0
-margin_top = 12.0
+margin_top = 8.0
 margin_right = 8.0
-margin_bottom = 36.0
+margin_bottom = 40.0
 size_flags_horizontal = 10
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
 
 [node name="Countdown" parent="CenterOverlay" index="0" instance=ExtResource( 7 )]
 margin_right = 432.0
@@ -52,7 +58,7 @@ margin_right = 216.0
 margin_bottom = 87.0
 
 [node name="VBoxContainer" parent="Toolbar" index="0"]
-margin_bottom = 782.0
+margin_bottom = 818.0
 
 [node name="SessionPanelFreeplay" parent="Toolbar/VBoxContainer" index="0" instance=ExtResource( 6 )]
 margin_right = 444.0
@@ -67,11 +73,11 @@ title = "Best"
 [node name="ChessSettings" parent="Toolbar/VBoxContainer" index="2" instance=ExtResource( 3 )]
 margin_top = 522.0
 margin_right = 444.0
-margin_bottom = 712.0
+margin_bottom = 704.0
 size_flags_vertical = 10
 
 [node name="Button" parent="Toolbar/VBoxContainer" index="3"]
-margin_top = 737.0
-margin_bottom = 767.0
+margin_top = 729.0
+margin_bottom = 803.0
 [connection signal="countdown_finished" from="CenterOverlay/Countdown" to="." method="_on_Countdown_countdown_finished"]
 [connection signal="colour_changed" from="Toolbar/VBoxContainer/ChessSettings" to="." method="_on_ChessSettings_colour_changed"]

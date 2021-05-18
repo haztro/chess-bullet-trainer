@@ -1,14 +1,24 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://ui/DifficultyMenu.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/font_large_top.tres" type="DynamicFont" id=3]
+[ext_resource path="res://ui/Background.tscn" type="PackedScene" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0, 0, 1 )
 
 [node name="SizeMenu" type="MarginContainer"]
 margin_right = 1025.0
 margin_bottom = 612.0
 theme = ExtResource( 1 )
 custom_constants/margin_right = 20
-custom_constants/margin_top = 20
+custom_constants/margin_top = 40
 custom_constants/margin_left = 20
 custom_constants/margin_bottom = 20
 script = ExtResource( 2 )
@@ -16,64 +26,205 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Background" parent="." instance=ExtResource( 4 )]
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 20.0
-margin_top = 20.0
+margin_top = 40.0
 margin_right = 1005.0
-margin_bottom = 592.0
-custom_constants/separation = 80
+margin_bottom = 593.0
+custom_constants/separation = 10
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_left = 220.0
-margin_right = 764.0
-margin_bottom = 32.0
+margin_left = 84.0
+margin_right = 900.0
+margin_bottom = 48.0
 size_flags_horizontal = 4
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 3 )
 text = "Select Difficulty"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
-margin_left = 362.0
-margin_top = 112.0
-margin_right = 622.0
-margin_bottom = 414.0
-size_flags_horizontal = 4
-custom_constants/separation = 50
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 58.0
+margin_right = 985.0
+margin_bottom = 461.0
 
-[node name="EasyBtn" type="Button" parent="VBoxContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+margin_left = 362.0
+margin_right = 622.0
+margin_bottom = 403.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+custom_constants/separation = 25
+
+[node name="EasyBtn" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 margin_right = 260.0
-margin_bottom = 38.0
+margin_bottom = 82.0
 rect_min_size = Vector2( 150, 0 )
 text = "Easy"
 
-[node name="NormalBtn" type="Button" parent="VBoxContainer/VBoxContainer"]
-margin_top = 88.0
+[node name="NormalBtn" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 107.0
 margin_right = 260.0
-margin_bottom = 126.0
+margin_bottom = 189.0
 rect_min_size = Vector2( 150, 0 )
 text = "Normal"
 
-[node name="HardBtn" type="Button" parent="VBoxContainer/VBoxContainer"]
-margin_top = 176.0
+[node name="HardBtn" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 214.0
 margin_right = 260.0
-margin_bottom = 214.0
+margin_bottom = 296.0
 rect_min_size = Vector2( 150, 0 )
 text = "Hard"
 
-[node name="ExtremeBtn" type="Button" parent="VBoxContainer/VBoxContainer"]
-margin_top = 264.0
+[node name="ExtremeBtn" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 321.0
 margin_right = 260.0
-margin_bottom = 302.0
+margin_bottom = 403.0
 rect_min_size = Vector2( 260, 0 )
 text = "Extreme"
 
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/HBoxContainer"]
+visible = false
+margin_left = 745.0
+margin_top = 49.0
+margin_right = 985.0
+margin_bottom = 289.0
+size_flags_horizontal = 8
+size_flags_vertical = 6
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+columns = 4
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_right = 60.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel2" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_left = 60.0
+margin_right = 120.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel3" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_left = 120.0
+margin_right = 180.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel4" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_left = 180.0
+margin_right = 240.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel5" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_top = 60.0
+margin_right = 60.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel6" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_left = 60.0
+margin_top = 60.0
+margin_right = 120.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel7" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_left = 120.0
+margin_top = 60.0
+margin_right = 180.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel8" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_left = 180.0
+margin_top = 60.0
+margin_right = 240.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel9" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_top = 120.0
+margin_right = 60.0
+margin_bottom = 180.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel10" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_left = 60.0
+margin_top = 120.0
+margin_right = 120.0
+margin_bottom = 180.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel11" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_left = 120.0
+margin_top = 120.0
+margin_right = 180.0
+margin_bottom = 180.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel12" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_left = 180.0
+margin_top = 120.0
+margin_right = 240.0
+margin_bottom = 180.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel13" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_top = 180.0
+margin_right = 60.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel14" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_left = 60.0
+margin_top = 180.0
+margin_right = 120.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel15" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_left = 120.0
+margin_top = 180.0
+margin_right = 180.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel16" type="Panel" parent="VBoxContainer/HBoxContainer/GridContainer"]
+margin_left = 180.0
+margin_top = 180.0
+margin_right = 240.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 60, 60 )
+custom_styles/panel = SubResource( 1 )
+
 [node name="BackBtn" type="Button" parent="VBoxContainer"]
-margin_top = 534.0
-margin_right = 140.0
-margin_bottom = 572.0
+margin_top = 471.0
+margin_right = 158.0
+margin_bottom = 553.0
 size_flags_horizontal = 0
 size_flags_vertical = 10
 text = "Back"
-[connection signal="pressed" from="VBoxContainer/VBoxContainer/EasyBtn" to="." method="_on_EasyBtn_pressed"]
-[connection signal="pressed" from="VBoxContainer/VBoxContainer/NormalBtn" to="." method="_on_NormalBtn_pressed"]
-[connection signal="pressed" from="VBoxContainer/VBoxContainer/HardBtn" to="." method="_on_HardBtn_pressed"]
-[connection signal="pressed" from="VBoxContainer/VBoxContainer/ExtremeBtn" to="." method="_on_ExtremeBtn_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/EasyBtn" to="." method="_on_EasyBtn_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/NormalBtn" to="." method="_on_NormalBtn_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/HardBtn" to="." method="_on_HardBtn_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/ExtremeBtn" to="." method="_on_ExtremeBtn_pressed"]
 [connection signal="pressed" from="VBoxContainer/BackBtn" to="." method="_on_BackBtn_pressed"]
