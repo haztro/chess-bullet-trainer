@@ -16,10 +16,10 @@ var piece = null
 func _ready():
 	$ColorRect.color = colour1
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$ColorRect.rect_size = rect_size
+	$ColorRect2.rect_size = rect_size
 	$Panel.rect_size = rect_size
 	$Label.rect_scale = rect_size * 0.06 / 16
 	$Label2.rect_scale = rect_size * 0.06 / 16

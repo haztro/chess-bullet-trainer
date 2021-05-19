@@ -9,6 +9,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+	
+func custom_record():
+	record_panel.set_clicks(GameData.score["vision"]["countdown"]["clicks"])
+	record_panel.set_time(get_time_string(GameData.score["vision"]["countdown"]["time"], GameData.score["vision"]["countdown"]["time"] >= 60000))
 
 func update_top_bar_labels():
 	$TopBar/TargetLabel.text = target
@@ -17,7 +21,7 @@ func update_top_bar_labels():
 
 func check_record():
 	GameData.score["vision"]["countdown"]["time"] = GameData.COUNTDOWN_TIME * 1000
-	record_panel.set_time(get_time_string(GameData.score["vision"]["countdown"]["time"], 0))
+	record_panel.set_time(get_time_string(GameData.score["vision"]["countdown"]["time"], GameData.score["vision"]["countdown"]["time"] >= 60000))
 		
 func check_record_time():
 	pass

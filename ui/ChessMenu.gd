@@ -12,8 +12,8 @@ func _on_viewport_size_changed():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	$Control/MarginContainer.rect_size = $Control.rect_size
 
 func _input(event):
 	if Input.is_action_just_pressed("back"):
@@ -44,3 +44,27 @@ func _on_CountdownBtn_pressed():
 		GameData.start_vision_countdown()
 	elif GameData.mode == GameData.Mode.PRECISION:
 		GameData.start_precision_countdown()
+
+
+func _on_FreeplayBtn_mouse_entered():
+	$Control/MarginContainer/ModeTip.show_tip()
+
+
+func _on_FreeplayBtn_mouse_exited():
+	$Control/MarginContainer/ModeTip.hide_tip()
+
+
+func _on_TimeTrialBtn_mouse_entered():
+	$Control/MarginContainer/ModeTip2.show_tip()
+
+
+func _on_TimeTrialBtn_mouse_exited():
+	$Control/MarginContainer/ModeTip2.hide_tip()
+
+
+func _on_CountdownBtn_mouse_entered():
+	$Control/MarginContainer/ModeTip3.show_tip()
+
+
+func _on_CountdownBtn_mouse_exited():
+	$Control/MarginContainer/ModeTip3.hide_tip()

@@ -12,8 +12,15 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	pass
+	
+func custom_record():
+	record_panel.set_clicks(GameData.score["precision"]["time"]["clicks"])
+	if GameData.score["precision"]["time"]["time"] != 99999999999:
+		record_panel.set_time(get_time_string(GameData.score["precision"]["time"]["time"], GameData.score["precision"]["time"]["time"] >= 60000))
+	else:
+		record_panel.set_time(get_time_string(0, 0))
 
 func custom_success():
 	current_clicks += 1
@@ -32,11 +39,12 @@ func custom_success():
 			GameData.score["precision"]["time"]["time"] = time_since_miss
 			GameData.score["precision"]["time"]["clicks"] = current_clicks
 			record_panel.set_clicks(GameData.score["precision"]["time"]["clicks"])
-			record_panel.set_time(get_time_string(GameData.score["precision"]["time"]["time"]))
+			record_panel.set_time(get_time_string(GameData.score["precision"]["time"]["time"], GameData.score["precision"]["time"]["time"] >= 60000))
 	else:
 		choose_rand_tile()
 	
 func custom_misclick():
+	$ActivePiece.start_square.get_node("ColorRect2").visible = 0
 	disable_pieces()
 	hide_pieces()
 	$CenterOverlay/Countdown.mouse_filter = Control.MOUSE_FILTER_STOP

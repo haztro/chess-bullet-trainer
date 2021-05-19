@@ -8,8 +8,8 @@ enum Difficulty {EASY, NORMAL, HARD, EXTREME}
 const difficulties = {Difficulty.EASY : "easy", Difficulty.NORMAL : "normal", Difficulty.HARD : "hard", Difficulty.EXTREME : "extreme"}
 const board_sizes = {BoardSize.SIZE_4x4 : "4x4", BoardSize.SIZE_6x6 : "6x6", BoardSize.SIZE_8x8 : "8x8"}
 
-const CLICK_TARGET = 5
-const COUNTDOWN_TIME = 5
+const CLICK_TARGET = 29
+const COUNTDOWN_TIME = 30
 
 var white = 1
 var coords = 1
@@ -35,12 +35,12 @@ var score = {"freeplay" : {"easy" :
 								"4x4" : {"clicks":0, "time":0}}}, 
 			"vision" : 
 				{"freeplay" : {"clicks":0, "time":0}, 
-				"time" : {"clicks":0, "time":0}, 
-				"countdown" : {"clicks":0, "time":0}}, 
+				"time" : {"clicks":0, "time":99999999999}, 
+				"countdown" : {"clicks":0, "time":COUNTDOWN_TIME*1000}}, 
 			"precision" : 
 				{"freeplay" : {"clicks":0, "time":0}, 
-				"time" : {"clicks":0, "time":0}, 
-				"countdown" : {"clicks":0, "time":0}}}
+				"time" : {"clicks":0, "time":99999999999}, 
+				"countdown" : {"clicks":0, "time":COUNTDOWN_TIME*1000}}}
 
 var main_menu_scene = preload("res://Main.tscn")
 var size_menu_scene = preload("res://ui/SizeMenu.tscn")
@@ -61,9 +61,8 @@ var record_time = 9999999999999999
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-
+	pass
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("fullscreen"):

@@ -2,6 +2,7 @@ extends "res://grid/Grid.gd"
 
 
 var session_time = 0
+var click_grabbed = 0
 
 var chess_tile_scene = preload("res://grid/ChessTile.tscn")
 
@@ -24,8 +25,7 @@ func _process(delta):
 	session_panel.set_accuracy(accuracy)
 	update_top_bar_labels()
 	
-	record_panel.set_clicks(GameData.score["precision"]["freeplay"]["clicks"])
-	record_panel.set_time(get_time_string(GameData.score["precision"]["freeplay"]["time"]))
+	custom_record()
 
 	var c = get_closest_tile($ActivePiece)
 	if $ActivePiece.is_grabbed:
@@ -36,6 +36,10 @@ func update_top_bar_labels():
 #	$TopBar/TargetLabel.text = target
 	$TopBar/ClickCountLabel.text = str(current_clicks)
 	$TopBar/TimeLabel.text = get_time_string(time_since_miss, time_since_miss >= 60000)
+	
+func custom_record():
+	record_panel.set_clicks(GameData.score["precision"]["freeplay"]["clicks"])
+	record_panel.set_time(get_time_string(GameData.score["precision"]["freeplay"]["time"]))
 	
 func check_record():
 	if current_clicks >= GameData.score["precision"]["freeplay"]["clicks"]:
@@ -87,14 +91,19 @@ func _on_ActivePiece_released(piece):
 
 	var closest = get_closest_tile(piece)
 	
+	if closest == $ActivePiece.start_square:
+		click_grabbed = 1
+		return
+	
 	if closest == $ActivePiece.target_square:
-		
 		AudioManager.play("click")
+		click_grabbed = 0
+		piece.start_square.get_node("ColorRect2").visible = 0
 		piece.start_square = closest
 		piece.position = closest.rect_global_position
 		custom_success()
-		
 	else:
+#		piece.start_square.get_node("ColorRect2").visible = 0
 		misclick()
 		
 func disable_pieces():
@@ -120,6 +129,7 @@ func show_pieces():
 #	$ActivePiece.visible = 1
 	
 func custom_success():
+	click_grabbed = 0
 	choose_rand_tile()
 	current_clicks += 1
 	session_clicks += 1
@@ -172,3 +182,18 @@ func _on_Countdown_countdown_finished():
 	last_time = OS.get_ticks_msec()
 	$Timer.start()
 	choose_rand_tile()
+
+
+func _on_TakePiece_clicked(piece):
+	var closest = get_closest_tile(piece)
+	
+	if click_grabbed:
+		AudioManager.play("click")
+		$ActivePiece.start_square.get_node("ColorRect2").visible = 0
+		$ActivePiece.start_square = closest
+		$ActivePiece.position = closest.rect_global_position
+		click_grabbed = 0
+		custom_success()
+	else:
+		$ActivePiece.start_square.get_node("ColorRect2").visible = 0
+		misclick()

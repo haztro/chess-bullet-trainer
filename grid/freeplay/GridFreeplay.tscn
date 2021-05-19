@@ -70,4 +70,5 @@ title = "Best"
 margin_top = 522.0
 margin_bottom = 596.0
 size_flags_vertical = 10
+
 [connection signal="countdown_finished" from="CenterOverlay/Countdown" to="." method="_on_Countdown_countdown_finished"]

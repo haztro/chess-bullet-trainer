@@ -10,14 +10,15 @@ config_version=4
 
 _global_script_classes=[  ]
 _global_script_class_icons={
-
 }
 
 [application]
 
-config/name="click-test"
+config/name="Chess Bullet Trainer"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
+config/macos_native_icon="res://icon.icns"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
@@ -27,6 +28,8 @@ Chess="*res://grid/Chess.gd"
 
 [display]
 
+window/size/width=1150
+window/size/height=780
 window/stretch/aspect="keep"
 
 [input]

@@ -26,9 +26,28 @@ func _process(delta):
 	session_panel.set_accuracy(accuracy)
 	update_top_bar_labels()
 	
+	custom_record()
+	
+	var c = get_closest_tile()
+	c.get_node("Panel").visible = 1
+	
+func custom_record():
 	record_panel.set_clicks(GameData.score["vision"]["freeplay"]["clicks"])
 	record_panel.set_time(get_time_string(GameData.score["vision"]["freeplay"]["time"]))
-	
+
+func get_closest_tile():
+	var min_dis = 9999999
+	var closest = null
+	# Get closest 
+	for t in tiles.values():
+		t.get_node("Panel").visible = 0
+		var d = get_global_mouse_position().distance_to(t.rect_global_position + t.rect_size/2)
+		if d < min_dis:
+			min_dis = d
+			closest = t
+			
+	return closest	
+
 func update_top_bar_labels():
 	$TopBar/TargetLabel.text = target
 	$TopBar/ClickCountLabel.text = str(current_clicks)

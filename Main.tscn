@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/art/pawnwhite.png" type="Texture" id=5]
 [ext_resource path="res://ui/Background.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://ui/ModeTip.tscn" type="PackedScene" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 2
@@ -47,8 +48,7 @@ size_flags_horizontal = 6
 custom_constants/separation = 30
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
-margin_left = -1.0
-margin_right = 99.0
+margin_right = 100.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
 size_flags_horizontal = 4
@@ -67,8 +67,8 @@ custom_fonts/font = ExtResource( 3 )
 text = "Chess"
 
 [node name="TextureRect2" type="TextureRect" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
-margin_left = 399.0
-margin_right = 499.0
+margin_left = 400.0
+margin_right = 500.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
 size_flags_horizontal = 4
@@ -85,39 +85,40 @@ size_flags_horizontal = 6
 custom_fonts/font = ExtResource( 3 )
 text = "Bullet Trainer"
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 188.0
 margin_right = 1021.0
 margin_bottom = 484.0
+custom_constants/separation = 30
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+margin_left = 335.0
+margin_right = 685.0
+margin_bottom = 296.0
+size_flags_horizontal = 6
 size_flags_vertical = 6
 custom_constants/separation = 25
 
-[node name="FreeplayBtn" type="Button" parent="VBoxContainer/VBoxContainer3"]
-margin_left = 335.0
-margin_right = 685.0
+[node name="FreeplayBtn" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer3"]
+margin_right = 350.0
 margin_bottom = 82.0
 rect_min_size = Vector2( 350, 0 )
-hint_tooltip = "No pressure, just click the black squares..."
 size_flags_horizontal = 4
-text = "Freeplay"
+text = "Clicker"
 
-[node name="VisionBtn" type="Button" parent="VBoxContainer/VBoxContainer3"]
-margin_left = 335.0
+[node name="VisionBtn" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer3"]
 margin_top = 107.0
-margin_right = 685.0
+margin_right = 350.0
 margin_bottom = 189.0
 rect_min_size = Vector2( 350, 0 )
-hint_tooltip = "Improve your visualisation of chess coordinates."
 size_flags_horizontal = 4
 text = "Vision"
 
-[node name="PrecisionBtn" type="Button" parent="VBoxContainer/VBoxContainer3"]
-margin_left = 335.0
+[node name="PrecisionBtn" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer3"]
 margin_top = 214.0
-margin_right = 685.0
+margin_right = 350.0
 margin_bottom = 296.0
 rect_min_size = Vector2( 350, 0 )
-hint_tooltip = "Improve your speed and accuracy in digital chess."
 size_flags_horizontal = 4
 text = "Precision"
 
@@ -148,6 +149,47 @@ margin_right = 1009.0
 margin_bottom = 42.0
 custom_fonts/font = SubResource( 1 )
 text = "[M] Mute Sound"
-[connection signal="pressed" from="VBoxContainer/VBoxContainer3/FreeplayBtn" to="." method="_on_FreeplayBtn_pressed"]
-[connection signal="pressed" from="VBoxContainer/VBoxContainer3/VisionBtn" to="." method="_on_VisionBtn_pressed"]
-[connection signal="pressed" from="VBoxContainer/VBoxContainer3/PrecisionBtn" to="." method="_on_PrecisionBtn_pressed"]
+
+[node name="Control" type="Control" parent="."]
+margin_top = 40.0
+margin_right = 1021.0
+margin_bottom = 597.0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 2
+custom_constants/margin_right = 12
+custom_constants/margin_bottom = 11
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ModeTip" parent="Control/MarginContainer" instance=ExtResource( 8 )]
+margin_right = 326.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "No pressure, just click the black squares..."
+
+[node name="ModeTip2" parent="Control/MarginContainer" instance=ExtResource( 8 )]
+margin_right = 326.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Improve your visualisation of chess coordinates."
+
+[node name="ModeTip3" parent="Control/MarginContainer" instance=ExtResource( 8 )]
+margin_right = 326.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Improve your mouse technique for online chess."
+
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/VBoxContainer3/FreeplayBtn" to="." method="_on_FreeplayBtn_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/VBoxContainer3/FreeplayBtn" to="." method="_on_FreeplayBtn_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer3/FreeplayBtn" to="." method="_on_FreeplayBtn_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/VBoxContainer3/VisionBtn" to="." method="_on_VisionBtn_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/VBoxContainer3/VisionBtn" to="." method="_on_VisionBtn_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer3/VisionBtn" to="." method="_on_VisionBtn_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/VBoxContainer3/PrecisionBtn" to="." method="_on_PrecisionBtn_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/VBoxContainer3/PrecisionBtn" to="." method="_on_PrecisionBtn_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer3/PrecisionBtn" to="." method="_on_PrecisionBtn_pressed"]

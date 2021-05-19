@@ -84,6 +84,7 @@ func choose_rand_tile():
 
 func click_registered(btn):
 	if btn.safe:
+#		AudioManager.get_node("AudioStreamPlayer").play()
 		AudioManager.play("click", 0, rand_range(0.3, 1.5))
 		btn.safe = 0
 		possible_tiles.append(btn)

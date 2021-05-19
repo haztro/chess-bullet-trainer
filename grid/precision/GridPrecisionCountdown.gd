@@ -15,9 +15,13 @@ func update_top_bar_labels():
 	$TopBar/ClickCountLabel.text = str(current_clicks)
 	$TopBar/TimeLabel.text = get_time_string(GameData.COUNTDOWN_TIME * 1000 - time_since_miss, 0)
 
+func custom_record():
+	record_panel.set_clicks(GameData.score["precision"]["countdown"]["clicks"])
+	record_panel.set_time(get_time_string(GameData.score["precision"]["countdown"]["time"], GameData.score["precision"]["countdown"]["time"] >= 60000))
+
 func check_record():
 	GameData.score["precision"]["countdown"]["time"] = GameData.COUNTDOWN_TIME * 1000
-	record_panel.set_time(get_time_string(GameData.score["precision"]["countdown"]["time"], 0))
+	record_panel.set_time(get_time_string(GameData.score["precision"]["countdown"]["time"], GameData.score["precision"]["countdown"]["time"] >= 60000))
 		
 func check_record_time():
 	pass
@@ -28,6 +32,7 @@ func custom_success():
 	session_clicks += 1
 	
 func custom_misclick():
+	$ActivePiece.start_square.get_node("ColorRect2").visible = 0
 	hide_pieces()
 	$CenterOverlay/Countdown.mouse_filter = Control.MOUSE_FILTER_STOP
 	$CenterOverlay/RetryButton.show_and_hold("Miss", 0)
@@ -56,6 +61,9 @@ func _on_Timer2_timeout():
 	$CenterOverlay/Countdown.mouse_filter = Control.MOUSE_FILTER_STOP
 	$CenterOverlay/RetryButton.show_and_hold(str(current_clicks), 0)
 #	target = ""
+
+	print(current_clicks)
+	print(GameData.score["precision"]["countdown"]["clicks"])
 	
 	if current_clicks > GameData.score["precision"]["countdown"]["clicks"]:
 		GameData.score["precision"]["countdown"]["clicks"] = current_clicks

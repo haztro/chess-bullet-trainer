@@ -1,6 +1,7 @@
 extends Node2D
 
 signal released(piece)
+signal clicked(piece)
 
 
 export(int) var active = 1
@@ -14,9 +15,9 @@ var is_grabbed = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if !active:
-		$Button.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
+#	if !active:
+#	$Button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if start_square != null:
@@ -46,7 +47,10 @@ func set_piece_type(pos, is_target):
 
 func _on_Button_button_down():
 	if active:
+		start_square.get_node("ColorRect2").visible = 1
 		is_grabbed = 1
+	else:
+		emit_signal("clicked", self)
 
 
 func _on_Button_button_up():

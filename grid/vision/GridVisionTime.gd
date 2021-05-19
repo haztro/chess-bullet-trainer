@@ -15,6 +15,13 @@ func _ready():
 #func _process(delta):
 #	pass
 
+func custom_record():
+	record_panel.set_clicks(GameData.score["vision"]["time"]["clicks"])
+	if GameData.score["vision"]["time"]["time"] != 99999999999:
+		record_panel.set_time(get_time_string(GameData.score["vision"]["time"]["time"], GameData.score["vision"]["time"]["time"] >= 60000))
+	else:
+		record_panel.set_time(get_time_string(0, 0))
+		
 func check_record():
 	pass
 		
@@ -31,7 +38,7 @@ func successful_click():
 			GameData.score["vision"]["time"]["time"] = time_since_miss
 			GameData.score["vision"]["time"]["clicks"] = current_clicks
 			record_panel.set_clicks(GameData.score["vision"]["time"]["clicks"])
-			record_panel.set_time(get_time_string(GameData.score["vision"]["time"]["time"]))
+			record_panel.set_time(get_time_string(GameData.score["vision"]["time"]["time"], GameData.score["vision"]["time"]["time"] >= 60000))
 	else:
 		choose_rand_tile()
 	

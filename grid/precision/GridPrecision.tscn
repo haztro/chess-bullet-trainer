@@ -87,5 +87,7 @@ active = 0
 [node name="ActivePiece" parent="." index="6" instance=ExtResource( 3 )]
 
 [node name="Tween" type="Tween" parent="." index="9"]
+
 [connection signal="countdown_finished" from="CenterOverlay/Countdown" to="." method="_on_Countdown_countdown_finished"]
+[connection signal="clicked" from="TakePiece" to="." method="_on_TakePiece_clicked"]
 [connection signal="released" from="ActivePiece" to="." method="_on_ActivePiece_released"]

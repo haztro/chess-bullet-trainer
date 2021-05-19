@@ -29,9 +29,9 @@ func _ready():
 	$GridContainer.rect_position = target
 	
 func _on_viewport_size_changed():
-	var tile_size = ceil(OS.get_window_size().x / num_tiles) 
-	$GridContainer.rect_size.x = OS.get_window_size().x + tile_size * 2
-	$GridContainer.rect_size.y = OS.get_window_size().x + tile_size * 2
+	var tile_size = ceil(OS.get_window_size().x / num_tiles)
+	$GridContainer.rect_size.x = max(OS.get_window_size().y + tile_size * 2, OS.get_window_size().x + tile_size * 2)
+	$GridContainer.rect_size.y = $GridContainer.rect_size.x
 	position = -Vector2.ONE * tile_size
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
